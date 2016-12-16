@@ -1,0 +1,175 @@
+\hypertarget{classCell}{\section{Cell Class Reference}
+\label{classCell}\index{Cell@{Cell}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classCell_af291f5d49a4d134d16cdcb1f3a677572}{Cell} (int x, int y, int size\+Neighbors, int nr\+Pions)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hypertarget{classCell_a9fa559f7a28e2b4336c6879ca09304d8}{virtual \hyperlink{classCell_a9fa559f7a28e2b4336c6879ca09304d8}{$\sim$\+Cell} ()}\label{classCell_a9fa559f7a28e2b4336c6879ca09304d8}
+
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+int \hyperlink{classCell_ac5aaa7dc8c6be76f373a06999451d625}{get\+Pion} ()
+\begin{DoxyCompactList}\small\item\em Getter of Pion. \end{DoxyCompactList}\item 
+\hypertarget{classCell_ae3f17f569258bea1dd3643244f52149e}{void \hyperlink{classCell_ae3f17f569258bea1dd3643244f52149e}{set\+Pion} (int pion)}\label{classCell_ae3f17f569258bea1dd3643244f52149e}
+
+\begin{DoxyCompactList}\small\item\em Setter of Pion. \end{DoxyCompactList}\item 
+int \hyperlink{classCell_a836edee87a5946b09be6aaab10a965c7}{get\+Size\+Neighbors} ()
+\begin{DoxyCompactList}\small\item\em Getter of size\+Neighbors. \end{DoxyCompactList}\item 
+\hypertarget{classCell_a3a77c433964c5d5273a1612efa4a328a}{void \hyperlink{classCell_a3a77c433964c5d5273a1612efa4a328a}{set\+Size\+Neighbors} (int sz)}\label{classCell_a3a77c433964c5d5273a1612efa4a328a}
+
+\begin{DoxyCompactList}\small\item\em Setter of size\+Neighbors. \end{DoxyCompactList}\item 
+int \hyperlink{classCell_a23b2ffae45833185853314632f4445b7}{get\+Coord\+X} ()
+\begin{DoxyCompactList}\small\item\em Getter of coord\+X. \end{DoxyCompactList}\item 
+int \hyperlink{classCell_a2183e6b253f534961eeb3db0e21261d2}{get\+Coord\+Y} ()
+\begin{DoxyCompactList}\small\item\em Getter of coord\+Y. \end{DoxyCompactList}\item 
+int \hyperlink{classCell_a490db23d1a51b67720a9d90d7126b26d}{get\+Nr\+Pions} ()
+\begin{DoxyCompactList}\small\item\em Getter of nr\+Pions. \end{DoxyCompactList}\item 
+\hypertarget{classCell_a68bda7accaf49ff5009c1e38305d85a2}{void \hyperlink{classCell_a68bda7accaf49ff5009c1e38305d85a2}{set\+Nr\+Pions} (int nr\+Pions)}\label{classCell_a68bda7accaf49ff5009c1e38305d85a2}
+
+\begin{DoxyCompactList}\small\item\em Setter of nr\+Pions. \end{DoxyCompactList}\item 
+void \hyperlink{classCell_aec89579133ca6fa8c7ca26264794e9ae}{validate\+Coords} (int $\ast$x, int $\ast$y, int n, int m)
+\begin{DoxyCompactList}\small\item\em Verify that the coords generated for neighbors are valid and if not modify them to be valid. \end{DoxyCompactList}\item 
+\hypertarget{classCell_a2cdebda60e360411094517842f62b712}{virtual void {\bfseries find\+Neighbors} (int n, int m, \hyperlink{classGrid}{Grid} $\ast$gr)=0}\label{classCell_a2cdebda60e360411094517842f62b712}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classCell_af291f5d49a4d134d16cdcb1f3a677572}{\index{Cell@{Cell}!Cell@{Cell}}
+\index{Cell@{Cell}!Cell@{Cell}}
+\subsubsection[{Cell}]{\setlength{\rightskip}{0pt plus 5cm}Cell\+::\+Cell (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{size\+Neighbors, }
+\item[{int}]{nr\+Pions}
+\end{DoxyParamCaption}
+)}}\label{classCell_af291f5d49a4d134d16cdcb1f3a677572}
+
+
+Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x} & \+: int, coordinate x \\
+\hline
+\mbox{\tt in}  & {\em y} & \+: int, coordinate y \\
+\hline
+\mbox{\tt in}  & {\em size\+Neighbors} & \+: int, number of neighbors \\
+\hline
+\mbox{\tt in}  & {\em nr\+Pions} & \+: int, ? \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classCell_a23b2ffae45833185853314632f4445b7}{\index{Cell@{Cell}!get\+Coord\+X@{get\+Coord\+X}}
+\index{get\+Coord\+X@{get\+Coord\+X}!Cell@{Cell}}
+\subsubsection[{get\+Coord\+X}]{\setlength{\rightskip}{0pt plus 5cm}Cell\+::get\+Coord\+X (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCell_a23b2ffae45833185853314632f4445b7}
+
+
+Getter of coord\+X. 
+
+\begin{DoxyReturn}{Returns}
+this.\+coord\+X \+: int, coordinate x 
+\end{DoxyReturn}
+\hypertarget{classCell_a2183e6b253f534961eeb3db0e21261d2}{\index{Cell@{Cell}!get\+Coord\+Y@{get\+Coord\+Y}}
+\index{get\+Coord\+Y@{get\+Coord\+Y}!Cell@{Cell}}
+\subsubsection[{get\+Coord\+Y}]{\setlength{\rightskip}{0pt plus 5cm}Cell\+::get\+Coord\+Y (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCell_a2183e6b253f534961eeb3db0e21261d2}
+
+
+Getter of coord\+Y. 
+
+\begin{DoxyReturn}{Returns}
+this.\+coord\+Y \+: int, coordinate y 
+\end{DoxyReturn}
+\hypertarget{classCell_a490db23d1a51b67720a9d90d7126b26d}{\index{Cell@{Cell}!get\+Nr\+Pions@{get\+Nr\+Pions}}
+\index{get\+Nr\+Pions@{get\+Nr\+Pions}!Cell@{Cell}}
+\subsubsection[{get\+Nr\+Pions}]{\setlength{\rightskip}{0pt plus 5cm}Cell\+::get\+Nr\+Pions (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCell_a490db23d1a51b67720a9d90d7126b26d}
+
+
+Getter of nr\+Pions. 
+
+\begin{DoxyReturn}{Returns}
+this.\+nr\+Pions \+: int, ? 
+\end{DoxyReturn}
+\hypertarget{classCell_ac5aaa7dc8c6be76f373a06999451d625}{\index{Cell@{Cell}!get\+Pion@{get\+Pion}}
+\index{get\+Pion@{get\+Pion}!Cell@{Cell}}
+\subsubsection[{get\+Pion}]{\setlength{\rightskip}{0pt plus 5cm}Cell\+::get\+Pion (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCell_ac5aaa7dc8c6be76f373a06999451d625}
+
+
+Getter of Pion. 
+
+\begin{DoxyReturn}{Returns}
+this.\+pion \+: int, state of the \char`\"{}pion\char`\"{} on the cell 
+\end{DoxyReturn}
+\hypertarget{classCell_a836edee87a5946b09be6aaab10a965c7}{\index{Cell@{Cell}!get\+Size\+Neighbors@{get\+Size\+Neighbors}}
+\index{get\+Size\+Neighbors@{get\+Size\+Neighbors}!Cell@{Cell}}
+\subsubsection[{get\+Size\+Neighbors}]{\setlength{\rightskip}{0pt plus 5cm}Cell\+::get\+Size\+Neighbors (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCell_a836edee87a5946b09be6aaab10a965c7}
+
+
+Getter of size\+Neighbors. 
+
+\begin{DoxyReturn}{Returns}
+this.\+size\+Neighbors \+: int, number of neighbors 
+\end{DoxyReturn}
+\hypertarget{classCell_aec89579133ca6fa8c7ca26264794e9ae}{\index{Cell@{Cell}!validate\+Coords@{validate\+Coords}}
+\index{validate\+Coords@{validate\+Coords}!Cell@{Cell}}
+\subsubsection[{validate\+Coords}]{\setlength{\rightskip}{0pt plus 5cm}Cell\+::validate\+Coords (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{x, }
+\item[{int $\ast$}]{y, }
+\item[{int}]{n, }
+\item[{int}]{m}
+\end{DoxyParamCaption}
+)}}\label{classCell_aec89579133ca6fa8c7ca26264794e9ae}
+
+
+Verify that the coords generated for neighbors are valid and if not modify them to be valid. 
+
+Constructs the list of neighbors.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x} & \+: int pointer, ? \\
+\hline
+\mbox{\tt in}  & {\em y} & \+: int pointer, ? \\
+\hline
+\mbox{\tt in}  & {\em n} & \+: int, ? \\
+\hline
+\mbox{\tt in}  & {\em m} & \+: int, ?\\
+\hline
+\mbox{\tt in}  & {\em n} & \+: int, ? \\
+\hline
+\mbox{\tt in}  & {\em m} & \+: int, ? \\
+\hline
+\mbox{\tt in}  & {\em gr} & \+: \hyperlink{classGrid}{Grid} pointer, pointer on the \hyperlink{classGrid}{Grid} of the cell. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Cell.\+hpp\item 
+Cell.\+cpp\end{DoxyCompactItemize}
