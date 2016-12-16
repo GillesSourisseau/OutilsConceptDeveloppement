@@ -37,7 +37,7 @@ class CellB : public Cell{
 		  \brief Find the neighbors and push them in the neighbor vector
 		  \param[in] n : int, number of rows of the grid
 		  \param[in] m : int, number of columns of the grid
-		  \param[in] gr : Grid pointer, pointer of the Grid
+		  \param[in] gr : Grid pointer, pointer of the grid
 		*/
         void findNeighbors(int n, int m,Grid* gr);
 
