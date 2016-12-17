@@ -11,7 +11,8 @@
 #ifndef _LIFE_APP_H_
 #define _LIFE_APP_H_
 
-#include "wx/minifram.h"
+#include "wx/wx.h"
+#include "wx/sizer.h"
 
 // #include "game.h"
 
@@ -23,82 +24,114 @@
 // Note that in LifeCanvas, all cell coordinates are
 // named i, j, while screen coordinates are named x, y.
 
-class LifeCanvas : public wxWindow
-{
-public:
-    // ctor and dtor
-    LifeCanvas(wxWindow* parent,/* Life* life,*/ bool interactive = true);
-    virtual ~LifeCanvas();
+// class LifeCanvas : public wxWindow
+// {
+// public:
+//     // ctor and dtor
+//     LifeCanvas(wxWindow* parent,/* Life* life,*/ bool interactive = true);
+//     virtual ~LifeCanvas();
 
-    // view management
-    int  GetCellSize() const { return m_cellsize; };
-    void SetCellSize(int cellsize);
-    void Recenter(wxInt32 i, wxInt32 j);
-    void DrawGrid(wxInt32 i, wxInt32 j);
-    void DrawRLY(int i, int j,wxDC *dc );
-    // drawing
-    void DrawChanged();
-    void DrawCell(wxInt32 i, wxInt32 j, bool alive);
+//     // view management
+//     int  GetCellSize() const { return m_cellsize; };
+//     void SetCellSize(int cellsize);
+//     void Recenter(wxInt32 i, wxInt32 j);
+//     void DrawGrid(wxInt32 i, wxInt32 j);
+//     void DrawRLY(int i, int j,wxDC *dc );
+//     // drawing
+//     void DrawChanged();
+//     void DrawCell(wxInt32 i, wxInt32 j, bool alive);
 
-private:
-    // any class wishing to process wxWidgets events must use this macro
-    wxDECLARE_EVENT_TABLE();
+// private:
+//     // any class wishing to process wxWidgets events must use this macro
+//     wxDECLARE_EVENT_TABLE();
 
-    // draw a cell (parametrized by DC)
-    void DrawCell(wxInt32 i, wxInt32 j, wxDC &dc);
+//     // draw a cell (parametrized by DC)
+//     void DrawCell(wxInt32 i, wxInt32 j, wxDC &dc);
 
-    // event handlers
-    void OnPaint(wxPaintEvent& event);
-    void OnMouse(wxMouseEvent& event);
-    void OnSize(wxSizeEvent& event);
-    void OnScroll(wxScrollWinEvent& event);
-    void OnEraseBackground(wxEraseEvent& event);
+//     // event handlers
+//     void OnPaint(wxPaintEvent& event);
+//     void OnMouse(wxMouseEvent& event);
+//     void OnSize(wxSizeEvent& event);
+//     void OnScroll(wxScrollWinEvent& event);
+//     void OnEraseBackground(wxEraseEvent& event);
 
 
-    // conversion between cell and screen coordinates
-    inline wxInt32 XToCell(wxCoord x) const { return (x / m_cellsize) + m_viewportX; };
-    inline wxInt32 YToCell(wxCoord y) const { return (y / m_cellsize) + m_viewportY; };
-    inline wxCoord CellToX(wxInt32 i) const { return (i - m_viewportX) * m_cellsize; };
-    inline wxCoord CellToY(wxInt32 j) const { return (j - m_viewportY) * m_cellsize; };
+//     // conversion between cell and screen coordinates
+//     inline wxInt32 XToCell(wxCoord x) const { return (x / m_cellsize) + m_viewportX; };
+//     inline wxInt32 YToCell(wxCoord y) const { return (y / m_cellsize) + m_viewportY; };
+//     inline wxCoord CellToX(wxInt32 i) const { return (i - m_viewportX) * m_cellsize; };
+//     inline wxCoord CellToY(wxInt32 j) const { return (j - m_viewportY) * m_cellsize; };
 
-    // what is the user doing?
-    enum MouseStatus
-    {
-        MOUSE_NOACTION,
-        MOUSE_DRAWING,
-        MOUSE_ERASING
-    };
+//     // what is the user doing?
+//     enum MouseStatus
+//     {
+//         MOUSE_NOACTION,
+//         MOUSE_DRAWING,
+//         MOUSE_ERASING
+//     };
 
-    //Life        *m_life;            // Life object
-    int          m_cellsize;        // current cell size, in pixels
-    bool         m_interactive;     // is this canvas interactive?
-    MouseStatus  m_status;          // what is the user doing?
-    wxInt32      m_viewportX;       // first visible cell (x coord)
-    wxInt32      m_viewportY;       // first visible cell (y coord)
-    wxInt32      m_viewportW;       // number of visible cells (w)
-    wxInt32      m_viewportH;       // number of visible cells (h)
-    int          m_thumbX;          // horiz. scrollbar thumb position
-    int          m_thumbY;          // vert. scrollbar thumb position
-    wxInt32      m_mi, m_mj;        // last mouse position
-};
+//     //Life        *m_life;            // Life object
+//     int          m_cellsize;        // current cell size, in pixels
+//     bool         m_interactive;     // is this canvas interactive?
+//     MouseStatus  m_status;          // what is the user doing?
+//     wxInt32      m_viewportX;       // first visible cell (x coord)
+//     wxInt32      m_viewportY;       // first visible cell (y coord)
+//     wxInt32      m_viewportW;       // number of visible cells (w)
+//     wxInt32      m_viewportH;       // number of visible cells (h)
+//     int          m_thumbX;          // horiz. scrollbar thumb position
+//     int          m_thumbY;          // vert. scrollbar thumb position
+//     wxInt32      m_mi, m_mj;        // last mouse position
+// };
 
 
 // --------------------------------------------------------------------------
 // LifeNavigator
 // --------------------------------------------------------------------------
 
-class LifeNavigator : public wxMiniFrame
+// class LifeNavigator : public wxMiniFrame
+// {
+// public:
+//     // ctor
+//     LifeNavigator(wxWindow *parent);
+
+// private:
+//     // any class wishing to process wxWidgets events must use this macro
+//     wxDECLARE_EVENT_TABLE();
+
+//     // event handlers
+//     void OnClose(wxCloseEvent& event);
+// };
+
+// --------------------------------------------------------------------------
+// BasicDrawPane
+// --------------------------------------------------------------------------
+
+class BasicDrawPane : public wxPanel
 {
+ 
 public:
-    // ctor
-    LifeNavigator(wxWindow *parent);
+    BasicDrawPane(wxFrame* parent);
+ 
+    void paintEvent(wxPaintEvent & evt);
+    void paintNow();
+ 
+    void render(wxDC& dc);
 
-private:
-    // any class wishing to process wxWidgets events must use this macro
-    wxDECLARE_EVENT_TABLE();
-
-    // event handlers
-    void OnClose(wxCloseEvent& event);
+    int cellsize;
+ 
+    // some useful events
+    /*
+     void mouseMoved(wxMouseEvent& event);
+     void mouseDown(wxMouseEvent& event);
+     void mouseWheelMoved(wxMouseEvent& event);
+     void mouseReleased(wxMouseEvent& event);
+     void rightClick(wxMouseEvent& event);
+     void mouseLeftWindow(wxMouseEvent& event);
+     void keyPressed(wxKeyEvent& event);
+     void keyReleased(wxKeyEvent& event);
+     */
+ 
+    DECLARE_EVENT_TABLE()
 };
 
 
@@ -116,6 +149,8 @@ public:
     // member functions
     void UpdateInfoText();
     void UpdateUI();
+
+    BasicDrawPane *drawPane;
 
 private:
     // any class wishing to process wxWidgets events must use this macro
@@ -137,7 +172,7 @@ private:
     void OnStep();*/
 
    // Life           *m_life;
-    LifeCanvas     *m_canvas;
+   // LifeCanvas     *m_canvas;
    // LifeNavigator  *m_navigator;
     wxStaticText   *m_text;
     wxTimer        *m_timer;
@@ -148,6 +183,11 @@ private:
 };
 
 
+
+
+
+
+
 // --------------------------------------------------------------------------
 // LifeApp
 // --------------------------------------------------------------------------
@@ -156,6 +196,12 @@ class LifeApp : public wxApp
 {
 public:
     virtual bool OnInit();
+    wxFrame *frame;
+    BasicDrawPane *drawPane;
 };
 
 #endif  // _LIFE_APP_H_
+
+
+
+
