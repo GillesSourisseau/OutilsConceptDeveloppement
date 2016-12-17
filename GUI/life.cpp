@@ -236,7 +236,7 @@ LifeFrame::LifeFrame() :
 
 
 
-    wxPanel *panel1 = new wxPanel(this, wxID_ANY, wxPoint(1, 1), wxSize(1000, 700));
+    wxPanel *panel1 = new wxPanel(this, wxID_ANY, wxPoint(1, 1), wxSize(800, 600));
     wxPanel *panel2 = new wxPanel(this, wxID_ANY);
 
     drawPane = new BasicDrawPane( panel1);
