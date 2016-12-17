@@ -1,0 +1,11 @@
+#ifndef __SPRITEB__
+#define __SPRITEB__
+
+#include "Sprite.cpp"
+
+class SpriteB : public Sprite{
+
+}
+
+
+#endif //__SPRITEB__

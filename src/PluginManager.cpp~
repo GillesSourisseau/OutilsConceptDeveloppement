@@ -19,7 +19,7 @@ vector<string> PluginManager::findPlugins(string directory){
     return pluginArray;
 }
 
-GridControllerFactory* PluginManager::loadPlugin(string path){
+void PluginManager::loadPlugin(string path, string name){
     void* handle = dlopen(path.c_str(),RTLD_LAZY);
     if(!handle){
         cerr<<dlerror()<<endl;
@@ -33,13 +33,13 @@ GridControllerFactory* PluginManager::loadPlugin(string path){
         cerr<<"Can not load symbol registerFactory: "<<dlsym_error<<endl;
         exit(EXIT_FAILURE);
     }
-    GridControllerFactory* gcf = (*regFactory)();
+    Plugin* p = (*regFactory)();
+    registerPlugin(p,name);
     dlclose(handle);
-    return gcf;
 }
 
-void PluginManager::registerGridController(GridControllerFactory* gf,string name){
-    this->gridControllerMap.insert(pair<string,GridControllerFactory* >(name,gf));
+void PluginManager::registerPlugin(Plugin* p,string name){
+    this->gridControllerMap.insert(pair<string,Plugin*>(name,p));
 }
 
 PluginManager::PluginManager(){
@@ -47,8 +47,7 @@ PluginManager::PluginManager(){
     for(int i=0;i<plarr.size();i++){
         string base = plarr[i].substr(plarr[i].find_last_of("/"),plarr[i].size()-1);
         string name = base.substr(0,base.find_last_of("."));
-        GridControllerFactory* gcf  = loadPlugin(plarr[i]);
-        registerGridController(gcf,name);
+        loadPlugin(plarr[i],name);
         this->pluginNames.push_back(name);
     }
 }
@@ -61,10 +60,9 @@ vector<string> PluginManager::getPluginNames(){
     return this->pluginNames;
 }
 
-GridController* PluginManager::getGridController(string name){
-    GridControllerFactory* gf = this->gridControllerMap.find(name)->second;
-    GridController* gCtrl =  gf->create();
-    return gCtrl;
+Plugin* PluginManager::getGridController(string name){
+    Plugin* p = this->gridControllerMap.find(name)->second;
+    return p;
 }
 
 

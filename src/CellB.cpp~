@@ -1,5 +1,4 @@
 #include "CellB.hpp"
-#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -13,19 +12,14 @@ CellB::~CellB(){
 }
 
 int CellB::getNeighborsAlive(){
-    int res = 0;
-	vector<CellB*> ngb = this->getNeighbors();
-	for(int i=0; i<ngb.size();i++){
-		if(ngb[i]->getPion()==1){
-			res++;
-		}
-	}
-	return res;
+  vector< pair<int,int> > nblist = getNeighbors();
+  int cmpt=0;
+  for(int i=0;i<nblist.size();i++){
+    pair<int,int> coord = nblist[i];
+    if(
 }
 
-vector<CellB*> CellB::getNeighbors(){
-    return this->neighbors;
-}
+
 
 void CellB::findNeighbors(int n, int m,Grid* gr){
 	int dx=-1;

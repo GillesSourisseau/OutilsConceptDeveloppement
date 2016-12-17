@@ -1,8 +1,12 @@
 #include "Cell.hpp"
+#include <vector>
+#include <utility>
+#include <iostream>
+using namespace std;
 
 
 Cell::Cell(int x, int y, int sizeNeighbors, int nrPions) : coordx(x), coordy(y), sizeNeighbors(sizeNeighbors), nrPions(nrPions), pion(0){
-
+  cout<<"inside cell constructor"<<endl;
 }
 
 Cell::~Cell(){
@@ -70,6 +74,8 @@ void Cell::validateCoords(int* x, int* y,int n, int m){
     }
 }
 
-
+vector<pair<int,int>>* Cell::getNeighbors(){
+    return &(this->neighbors);
+}
 
 

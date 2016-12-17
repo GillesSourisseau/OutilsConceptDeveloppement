@@ -1,0 +1,15 @@
+#ifndef __CELLB__
+#define __CELLB__
+
+class CellB : public Cell{
+    public:
+        CellB(int x, int y, int sizeNeighbors, int nrPions);
+        virtual ~CellB();
+        int getNeighborsAlive();
+        void findNeighbors(int n, int m,Grid* gr);
+};
+
+
+
+
+#endif //__CELLB__

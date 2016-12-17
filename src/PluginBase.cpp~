@@ -1,0 +1,13 @@
+#include "PluginBase.hpp"
+#include <iostream>
+
+using namespace std;
+
+extern "C" PB* registerFactory(){return new PB();}
+
+
+void PB::nextGeneration(Grid& gr){
+  Grid newGrid(gr->sizeRows(), gr->sizeColumns(),0);
+  for(int ind=0;ind < gr->sizeRows() * gr->sizeColumns();ind++){
+    map<pair<int,int>,int> neighborsState = getCellNeighborsState((gr->getTab())[ind]);
+    for(

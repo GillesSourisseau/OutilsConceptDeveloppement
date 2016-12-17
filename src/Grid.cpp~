@@ -6,14 +6,8 @@
 
 using namespace std;
 
-Grid::Grid(int n, int m, int resineaux, GridController* gc) : n(n), m(m), resineaux(resineaux), gc(gc){
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            Cell* c = gc->getControllerCellType(i,j,n,m);//instantiate the cells from the plugin
-            (this->tab[i]).push_back(c);
-        }
-    }
-    gc->computeNeighbors(this);
+Grid::Grid(int n, int m, int resineaux) : n(n), m(m), resineaux(resineaux){
+    
 }
 
 Grid::~Grid(){
@@ -44,7 +38,7 @@ void Grid::randomInitialise(int pion){
 
     for(it = initSet.begin(); it != initSet.end(); it++){
         pairs f = *it;
-        (this->tab[f.first][f.second])->setPion(pion);
+        tab(f.first,f.second)->setPion(pion);
     }
 }
 
@@ -60,10 +54,6 @@ int Grid::getResineaux(){
     return this->resineaux;
 }
 
-vector< vector<Cell*> > Grid::getTab(){
+vector<Cell*> Grid::getTab(){
     return this->tab;
-}
-
-GridController* Grid::getGC(){
-    return this->gc;
 }
