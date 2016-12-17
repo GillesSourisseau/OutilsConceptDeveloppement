@@ -1,0 +1,18 @@
+#include <iostream>
+#include "Grid.hpp"
+
+using namespace std;
+
+
+int main(){
+
+  int n,m,resineaux;
+  cout<<"enter the number of rows : ";
+  cin>>n;
+  cout<<"enter the number of columns : ";
+  cin>>m;
+  cout<<"enter the number of resineaux : ";
+  cin>>resineaux;
+
+  Grid platou(n,m,resineaux);
+  

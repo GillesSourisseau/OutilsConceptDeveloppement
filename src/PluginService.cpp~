@@ -1,0 +1,10 @@
+#include "PluginService.hpp"
+#include <iostream>
+
+static void PluginService::addPlugin(Plugin* pp){
+  p = pp;
+}
+
+static Plugin* PluginService::getPlugin(){
+  return p;
+}

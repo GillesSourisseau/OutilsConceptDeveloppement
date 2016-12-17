@@ -1,0 +1,59 @@
+#include "Grid.hpp"
+#include <iostream>
+#include <set>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+Grid::Grid(int n, int m, int resineaux) : n(n), m(m), resineaux(resineaux){
+    
+}
+
+Grid::~Grid(){
+
+}
+
+typedef pair<int,int> pairs;
+
+void Grid::randomInitialise(int pion){
+    int initsize = (this->resineaux / 100) * (this->n * this->m);
+    int i=0;
+    srand(time(0));
+    
+    set<pairs> initSet;
+    pairs p; 
+    while(i<initsize){
+        int x = rand() % n;
+        int y = rand() % m;
+        p.first = x;
+        p.second = y; 
+        pair<set<pairs>::iterator,bool> ret = initSet.insert(p);
+        if(ret.second == true){
+            i++;
+        }
+    } 
+
+    set<pairs> :: iterator it;
+
+    for(it = initSet.begin(); it != initSet.end(); it++){
+        pairs f = *it;
+        tab(f.first,f.second)->setPion(pion);
+    }
+}
+
+int Grid::getRows(){
+    return n;
+}
+
+int Grid::getColumns(){
+    return m;
+}
+
+int Grid::getResineaux(){
+    return this->resineaux;
+}
+
+vector<Cell*> Grid::getTab(){
+    return this->tab;
+}

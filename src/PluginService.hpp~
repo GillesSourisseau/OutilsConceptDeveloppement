@@ -1,0 +1,18 @@
+#ifndef __PSERVICE__
+#define __PSERVICE__
+
+#include "PluginInterface.hpp"
+
+class PluginService{
+private:
+  static Plugin* p;
+public:
+  static void addPlugin(Plugin* pp){
+    p=pp;
+  }
+  static Plugin* getPlugin(){
+    return p;
+  }
+}
+
+#endif //__PSERVICE__
