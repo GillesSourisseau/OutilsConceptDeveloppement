@@ -74,7 +74,7 @@ void Cell::validateCoords(int* x, int* y,int n, int m){
     }
 }
 
-vector<pair<int,int>>* Cell::getNeighbors(){
+vector< pair<int,int> >* Cell::getNeighbors(){
     return &(this->neighbors);
 }
 

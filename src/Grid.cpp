@@ -85,7 +85,7 @@ Cell* Grid::getCellAtIndex(int i,int j){
 
 map<pair<int,int>,int> Grid::getCellNeighborsState(Cell* c){
   map<pair<int,int>,int> cellStateMap;
-  vector<pair<int,int>>* neighborsList = c->getNeighbors();
+  vector< pair<int,int> >* neighborsList = c->getNeighbors();
   for(int i=0;i<neighborsList->size();i++){
     pair<int,int> coords = (*neighborsList)[i];
     Cell* cc = getCellAtIndex(coords.first, coords.second);
