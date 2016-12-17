@@ -9,7 +9,7 @@ class Sprite{
 
     public:
         Sprite(std::string imageName);
-        ~Sprite();
+        virtual ~Sprite();
         std::string getImageName();
         void setImageName(std::string imageName);
         //method to recover the file ........  
