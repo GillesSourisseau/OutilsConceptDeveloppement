@@ -17,7 +17,7 @@ public:
   void setPluginPath(std::string path);
   std::vector<std::string> findPlugins(std::string directory);
   Cell* getCellFromPlugin(int x,int y,int n,int m);
-  void getNextGen(Grid& gr);
+  void getNextGen(Grid* gr);
   Sprite* getSpriteFromPlugin();
   void applyProbaOnCells(Grid& og,Grid& ng);
 };

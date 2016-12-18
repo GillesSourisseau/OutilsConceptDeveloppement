@@ -48,8 +48,8 @@ void* PluginManager::loadPlugin(int method, void* params[]){
       cout<<"end test"<<endl;
     }else if (method==2){
       cout<<"now we are going to get the next state of the grid"<<endl;
-      Grid& g = (Grid&) params[0];
-      p->nextGeneration(g);
+      Grid* g = (Grid*) params[0];
+      p->nextGeneration(*g);
       cout<<"method nextGeneration ended"<<endl;
     }else if(method == 3){
       cout<<"getting the sprite class from the plugin"<<endl;
@@ -73,8 +73,8 @@ Cell* PluginManager::getCellFromPlugin(int i,int j,int n, int m){
   return res;
 }
 
-void PluginManager::getNextGen(Grid& gr){
-  void* params[] = {&gr};
+void PluginManager::getNextGen(Grid* gr){
+  void* params[] = {gr};
   loadPlugin(2,params);
 }
 

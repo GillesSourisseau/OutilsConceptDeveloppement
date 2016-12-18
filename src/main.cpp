@@ -43,8 +43,8 @@ int main(){
 
   //here you should ask the user if he wants to change the default plugin to another one
   
-  Cell* cl = pm->getCellFromPlugin(1,2,3,4);
-  cout<<cl->getPion();
+  //Cell* cl = pm->getCellFromPlugin(1,2,3,4);
+  //cout<<cl->getPion();
   
   cout<<"enter the number of rows : ";
   cin>>n;
@@ -73,7 +73,20 @@ int main(){
   cout<<"after show method"<<endl;
   cout<<"number of possible states: "<<(platou.getTab())[1]->getNrPions()<<endl;
 
-  showNeighbors(platou,10);
+  //showNeighbors(platou,10);
+
+  int steps;
+
+  cout<<"number of generations to display :";
+  cin>>steps;
+  for(int j=0;j<steps;j++){
+    cout<<"step "<<j<<" )"<<endl;
+    pm->getNextGen(&platou);
+    showGrid(platou);
+    cout<<endl;
+  }
+  
+  
 
 
   return 0;

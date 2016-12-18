@@ -19,7 +19,12 @@ PluginBase::~PluginBase(){
 
 void PluginBase::nextGeneration(Grid& gr){
   cout<<"inside plugin method nextgeneration() that outputs the next gen of the grid"<<endl;
-  Grid newGrid(gr.sizeRows(), gr.sizeColumns(),0);
+  vector<int> temp;
+  //init the temp vector with 0 state
+  for(int ind=0;ind < gr.sizeRows() * gr.sizeColumns();ind++){
+    temp.push_back(0);
+  }
+  
   for(int ind=0;ind < gr.sizeRows() * gr.sizeColumns();ind++){
     map<pair<int,int>,int> neighborsState = gr.getCellNeighborsState((gr.getTab())[ind]);
     int cellsAlive = 0;
@@ -31,13 +36,16 @@ void PluginBase::nextGeneration(Grid& gr){
     int cellState = (gr.getTab())[ind]->getPion();
     if(cellState == 0){
       if(cellsAlive > 2){
-	(newGrid.getTab())[ind]->setPion(1);
+	temp[ind] = 1;
       }
     }else if(cellsAlive == 2 || cellsAlive == 3){
-      (newGrid.getTab())[ind]->setPion(1);
+      temp[ind] = 1;;
     }else if(cellsAlive < 2 || cellsAlive > 3){
-      (newGrid.getTab())[ind]->setPion(0);
+      temp[ind] = 0;
     }
+  }
+  for(int ind=0; ind< gr.sizeRows() * gr.sizeColumns();ind++){
+    (gr.getTab())[ind]->setPion(temp[ind]);
   }
 }
 
