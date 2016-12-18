@@ -33,6 +33,9 @@ public:
     void UpdateInfoTextDialog();
     void OnSliderDialog1(wxScrollEvent&  event);
     void OnSliderDialog2(wxScrollEvent&  event);
+    long GetTailleX();
+    long GetTailleY();
+
 
 
 private:

@@ -33,6 +33,8 @@ public:
     void render(wxDC& dc);
 
     int cellsize;
+    long m_tailleX;
+    long m_tailleY;
 
  
     DECLARE_EVENT_TABLE()
@@ -69,6 +71,7 @@ private:
     void OnSlider(wxScrollEvent& event);
     void OnTimer(wxTimerEvent& event);
     void OnClose(wxCloseEvent& event);
+    void OnNewGame(wxCommandEvent& WXUNUSED(event));
 
     // event handler helpers
    /* void OnStart();
@@ -83,6 +86,7 @@ private:
     bool            m_topspeed;
     long            m_interval;
     long            m_tics;
+
 };
 
 

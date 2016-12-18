@@ -83,7 +83,7 @@ enum
 
 // Event tables
 wxBEGIN_EVENT_TABLE(LifeFrame, wxFrame)
-    EVT_MENU            (ID_NEW,     LifeFrame::OnMenu)
+    EVT_MENU            (ID_NEW,     LifeFrame::OnNewGame)
     EVT_MENU            (wxID_ABOUT,   LifeFrame::OnMenu)
     EVT_MENU            (wxID_EXIT,    LifeFrame::OnMenu)
     EVT_MENU            (ID_INFO,      LifeFrame::OnMenu)
@@ -241,6 +241,8 @@ LifeFrame::LifeFrame() :
 
     drawPane = new BasicDrawPane( panel1);
     drawPane->cellsize = 6; 
+    drawPane->m_tailleX = 100;
+    drawPane->m_tailleY = 100;
 
 
 
@@ -329,17 +331,6 @@ void LifeFrame::OnMenu(wxCommandEvent& event)
 {
     switch (event.GetId())
     {
-        case ID_NEW:
-        {
-            NewGameDialog dialog(this);
-            // // stop if it was running
-            // OnStop();
-            // m_life->Clear();
-            // m_canvas->Recenter(0, 0);
-            // m_tics = 0;
-            // UpdateInfoText();
-            break;
-        }
         case wxID_ABOUT:
         {
             LifeAboutDialog dialog(this);
@@ -379,7 +370,29 @@ void LifeFrame::OnMenu(wxCommandEvent& event)
     }
 }
 
+void LifeFrame::OnNewGame(wxCommandEvent& WXUNUSED(event)){
 
+        // stop if it was running
+    //OnStop();
+
+    // dialog box
+    NewGameDialog dialog(this);
+
+    if (dialog.ShowModal() == wxID_OK)
+    {
+        
+        drawPane->m_tailleX = dialog.GetTailleX();
+        drawPane->m_tailleY = dialog.GetTailleY();
+
+
+        // m_life->Clear()
+
+        drawPane->paintNow();
+        m_tics = 0;
+        UpdateInfoText();
+
+    }
+}
 
 
 void LifeFrame::OnSlider(wxScrollEvent& event)
@@ -493,8 +506,8 @@ void BasicDrawPane::render(wxDC&  dc)
 
 
     int scale = cellsize;
-    for (int k = 0; k < 150; k++){
-        for (int j= 0; j < 100; j++){
+    for (int k = 0; k < m_tailleX; k++){
+        for (int j= 0; j < m_tailleY; j++){
 
             if (j%2 == 1){
                 dc.SetBrush(*wxBLACK_BRUSH);

@@ -96,7 +96,7 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
       wxPoint(5, 5), wxSize(240, 150));
 
     wxRadioButton *rb0 = new wxRadioButton(panel, -1, 
-      wxT("Ne rien faire"), wxPoint(15, 30), wxDefaultSize, wxRB_GROUP);
+      wxT("Jeu de base"), wxPoint(15, 30), wxDefaultSize, wxRB_GROUP);
   wxRadioButton *rb1 = new wxRadioButton(panel, ID_CHOIX1, 
       wxT("Plugin 1"), wxPoint(15, 55));
 
@@ -155,9 +155,9 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
   SetSizer(vbox);
 
   Centre();
-  ShowModal();
+  /*ShowModal();
 
-  Destroy(); 
+  Destroy(); */
 
 
 
@@ -225,6 +225,16 @@ void NewGameDialog::OnChoix2( wxCommandEvent& event )
 void NewGameDialog::OnChoix3( wxCommandEvent& event )
 {
     wxLogMessage("Le choix3");
+}
+
+long NewGameDialog::GetTailleX()
+{
+    return tailleX;
+}
+
+long NewGameDialog::GetTailleY()
+{
+    return tailleY;
 }
 // --------------------------------------------------------------------------
 // LifeAboutDialog
