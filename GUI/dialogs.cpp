@@ -49,8 +49,6 @@
 enum
 {
     // listbox in samples dialog
-    ID_LISTBOX,
-    ID_CLOSE,
     ID_CHOIX1,
     ID_CHOIX2,
     ID_CHOIX3,
@@ -67,7 +65,6 @@ enum
 
 // Event tables
 wxBEGIN_EVENT_TABLE(NewGameDialog, wxDialog)
-    EVT_LISTBOX (ID_LISTBOX, NewGameDialog::OnListBox)
     EVT_RADIOBUTTON (ID_CHOIX1, NewGameDialog::OnChoix1)
     EVT_RADIOBUTTON (ID_CHOIX2, NewGameDialog::OnChoix2)
     EVT_RADIOBUTTON (ID_CHOIX3, NewGameDialog::OnChoix3)
@@ -87,7 +84,7 @@ wxEND_EVENT_TABLE()
 
 NewGameDialog::NewGameDialog(wxWindow *parent)
                  : wxDialog(parent, wxID_ANY, _("New Game"),
-                            wxDefaultPosition, wxDefaultSize)
+                            wxDefaultPosition, wxSize(250,300))
 {
 
     wxPanel *panel = new wxPanel(this, -1);
@@ -107,23 +104,12 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
       wxT("Plugin 2"), wxPoint(15, 80));
   wxRadioButton *rb3 = new wxRadioButton(panel, ID_CHOIX3, 
       wxT("Plugin 3"), wxPoint(15, 105));
- /* wxRadioButton *rb3 = new wxRadioButton(panel, -1, 
-      wxT("Custom"), wxPoint(15, 105));
-  wxTextCtrl *tc = new wxTextCtrl(panel, -1, wxT(""), 
-      wxPoint(95, 105));*/
-
-  // wxButton *okButton = new wxButton(this, -1, wxT("Ok"), 
-  //     wxDefaultPosition, wxSize(70, 30));
-  // wxButton *closeButton = new wxButton(this, wxCANCEL, wxT("cHANGER"), 
-  //     wxDefaultPosition, wxSize(70, 30));
 
   wxSizer *sizerBtns = CreateButtonSizer(wxOK|wxCANCEL);
     if ( sizerBtns )
     {
         hbox->Add(sizerBtns, wxSizerFlags().Expand().Border());
    }
-
- //wxPanel *panel2 = new wxPanel(this, -1);
 
 
    wxStaticBox *st1 = new wxStaticBox(panel, -1, wxT("Taille"), 
@@ -138,7 +124,6 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
         wxPoint(125,185),
         wxSize(100,100),
         wxALIGN_CENTER | wxST_NO_AUTORESIZE);
-   // wxALIGN_CENTER | wxST_NO_AUTORESIZE);
 
     UpdateInfoTextDialog();
 
@@ -157,20 +142,12 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
 
 
 
-   // slider = new wxSlider(this, ID_SLIDERDIALOG, 50, 0, 100, wxPoint(15, 185), 
-   //      wxSize(1, 100), wxSL_HORIZONTAL);
- /* wxTextCtrl *tc = new wxTextCtrl(panel2, -1, wxT(""), 
-      wxPoint(95, 105));
-   wxTextCtrl *tc = new wxTextCtrl(panel2, -1, wxT(""), 
-      wxPoint(140, 135));*/
-
 
 
   // hbox->Add(okButton, 1);
   // hbox->Add(closeButton, 1, wxLEFT, 5);
 
   vbox->Add(panel, 1);
-  //vbox->Add(panel2, 1);
   vbox->Add(hbox, 0, wxALIGN_CENTER | wxTOP | wxBOTTOM, 10);
 
 
@@ -188,87 +165,13 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
 
 
 
-
-
-
-
-//     m_value = 0;
-
-//     wxSize listSize = wxDefaultSize;
-//     bool isPDA = wxSystemSettings::GetScreenType() <= wxSYS_SCREEN_PDA;
-
-//     // Screens are generally horizontal in orientation,
-//     // but PDAs are generally vertical.
-//     bool screenIsHorizontal = true;
-//     if (isPDA &&
-//         wxSystemSettings::GetMetric(wxSYS_SCREEN_X) < wxSystemSettings::GetMetric(wxSYS_SCREEN_Y))
-//     {
-//         listSize = wxSize(wxDefaultCoord, 50);
-//         screenIsHorizontal = false;
-//     }
-
-//     // create and populate the list of available samples
-//     m_list = new wxListBox( this, ID_LISTBOX,
-//         wxDefaultPosition,
-//         listSize,
-//         0, NULL,
-//         wxLB_SINGLE | wxLB_NEEDED_SB | wxLB_HSCROLL );
-
-//     for (unsigned i = 0; i < (sizeof(g_patterns) / sizeof(LifePattern)); i++)
-//         m_list->Append(g_patterns[i].m_name);
-
-//     // descriptions
-//     wxStaticBox *statbox = new wxStaticBox( this, wxID_ANY, _("Description"));
-//     m_life   = new Life();
-//     m_life->SetPattern(g_patterns[0]);
-//     m_canvas = new LifeCanvas( this, m_life, false );
-//     m_text   = new wxTextCtrl( this, wxID_ANY,
-//         g_patterns[0].m_description,
-//         wxDefaultPosition,
-//         wxSize(300, 60),
-//         wxTE_MULTILINE | wxTE_READONLY);
-
-//     // layout components
-
-//     wxStaticBoxSizer *sizer1 = new wxStaticBoxSizer( statbox, wxVERTICAL );
-//     sizer1->Add( m_canvas, 2, wxGROW | wxALL, 5);
-//     sizer1->Add( m_text, 1, wxGROW | wxALL, 5 );
-
-//     wxBoxSizer *sizer2 = new wxBoxSizer( screenIsHorizontal ? wxHORIZONTAL : wxVERTICAL );
-//     sizer2->Add( m_list, 0, wxGROW | wxALL, 5 );
-//     sizer2->Add( sizer1, 1, wxGROW | wxALL, 5 );
-
-//     wxBoxSizer *sizer3 = new wxBoxSizer( wxVERTICAL );
-//     sizer3->Add( CreateTextSizer(_("Select a configuration")), 0, wxALL|wxCENTRE, isPDA ? 2 : 10 );
-// #if wxUSE_STATLINE
-//     if (!isPDA)
-//         sizer3->Add( new wxStaticLine(this, wxID_ANY), 0, wxGROW | wxLEFT | wxRIGHT, 10 );
-// #endif // wxUSE_STATLINE
-//     sizer3->Add( sizer2, 1, wxGROW | wxALL, 5 );
-
-//     wxSizer *sizerBtns = CreateButtonSizer(wxOK|wxCANCEL);
-//     if ( sizerBtns )
-//     {
-//         sizer3->Add(sizerBtns, wxSizerFlags().Expand().Border());
-//     }
-
-//     // activate
-//     SetSizer(sizer3);
-//     sizer3->SetSizeHints(this);
-//     sizer3->Fit(this);
-//     Centre(wxBOTH | wxCENTRE_ON_SCREEN);
-
 }
 
 NewGameDialog::~NewGameDialog()
 {
-    //m_canvas->Destroy();
+    
 }
 
-// const LifePattern& NewGameDialog::GetPattern()
-// {
-//     return g_patterns[m_value];
-// }
 
 
 void NewGameDialog::UpdateInfoTextDialog()
@@ -280,10 +183,6 @@ void NewGameDialog::UpdateInfoTextDialog()
             tailleY);
     text_taille->SetLabel(msg);
 
-    /*    msg.Printf(_(" Generation: %lu (T: %lu ms)"),
-               m_tics,
-               m_topspeed? 0 : m_interval);
-    m_text->SetLabel(msg);*/
 }
 
 void NewGameDialog::OnSliderDialog1(wxScrollEvent& event)
@@ -310,31 +209,6 @@ void NewGameDialog::OnSliderDialog2(wxScrollEvent& event)
     // }
 
     UpdateInfoTextDialog();
-}
-
-void NewGameDialog::OnListBox(wxCommandEvent& event)
-{
-    // int sel = event.GetSelection();
-
-    // if (sel != -1)
-    // {
-    //     m_value = m_list->GetSelection();
-    //     m_text->SetValue(g_patterns[ sel ].m_description);
-    //     m_life->SetPattern(g_patterns[ sel ]);
-
-    //     // these values shouldn't be hardcoded...
-    //     if ((size_t)sel < (sizeof(g_patterns) / sizeof(LifePattern)) - 3)
-    //         m_canvas->SetCellSize(8);
-    //     else
-    //         m_canvas->SetCellSize(2);
-    // }
-}
-
-void NewGameDialog::OnExit( wxCommandEvent& event )
-{
-    wxLogMessage("Les chevaux c'est super!");
-    /*Close(TRUE);
-    std::cout << "youhou" ; // Tells the OS to quit running this process*/
 }
 
 

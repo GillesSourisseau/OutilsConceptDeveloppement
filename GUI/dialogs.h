@@ -27,8 +27,6 @@ public:
     virtual ~NewGameDialog();
 
     // event handlers
-    void OnListBox(wxCommandEvent &event);
-    void OnExit(wxCommandEvent &event);
     void OnChoix1(wxCommandEvent &event);
     void OnChoix2(wxCommandEvent &event);
     void OnChoix3(wxCommandEvent &event);
