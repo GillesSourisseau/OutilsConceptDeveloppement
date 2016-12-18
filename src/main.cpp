@@ -5,6 +5,7 @@
 #include "PluginManager.hpp"
 #include "PluginService.hpp"
 
+
 using namespace std;
 
 void showGrid(Grid gr){
@@ -32,10 +33,22 @@ void showNeighbors(Grid gr, int size){
 
 int main(){
   int n,m,resineaux;
-  PluginManager* p = new PluginManager();
-  cout<<"before getPlugin()"<<endl;
-  Plugin* plugin = p->getPlugin("libpluginBase.so");
+  PluginManager* pm = new PluginManager();
+
+  vector<string> names = pm->findPlugins("./plugins/");
+  for(int i=0;i<names.size();i++){
+    cout<<i<<" ) "<<names[i]<<endl;
+  }
   
+  Cell* cl = pm->getCellFromPlugin(1,2,3,4);
+  /*
+  if(plugin != nullptr){
+    cout<<"OKKK plugin is not null"<<endl;
+    plugin->getControllerCellType(1,2,3,4);
+    cout<<"END TEST"<<endl;
+  }
+  */
+  cout<<cl->getPion();
   cout<<"enter the number of rows : ";
   cin>>n;
   cout<<"enter the number of columns : ";

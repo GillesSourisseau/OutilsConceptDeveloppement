@@ -11,8 +11,12 @@ using namespace std;
 Grid::Grid(int n, int m, int resineaux) : n(n), m(m), resineaux(resineaux){
   cout<<"inside grid constructor"<<endl;
   Plugin* p= PluginService::getPlugin();
+  if(p==nullptr){
+    cout<<"null pointer to plugin"<<endl;
+  }
   int ind = 0;
   for(int i=0;i<n;i++){
+    cout<<"one step"<<endl;
     for(int j=0;j<m;j++){
       tab.push_back(p->getControllerCellType(i,j,n,m));
       cout<<"case "<<i<<" "<<j<<" created in tab["<<ind<<"]"<<endl;

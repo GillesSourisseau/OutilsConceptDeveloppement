@@ -8,18 +8,20 @@
 
 
 class PluginManager{
-    private:
-        std::map<std::string, Plugin*> pluginsMap;
-        std::vector<std::string> pluginsNames;
-        std::vector<std::string> findPlugins(std::string directory);
-        void loadPlugin(std::string path,std::string name);
-        void registerPlugin(Plugin* p, std::string name);
-    public:
-        PluginManager();
-        ~PluginManager();
-        std::vector<std::string> getPluginNames(); 
-        Plugin* getPlugin(std::string name);//instantiate from the correct factory a gridcontroller
+private:
+  std::string pathPlugin;
+  void* loadPlugin(int method,void* params[]);
+public:
+  PluginManager();
+  ~PluginManager();
+  void setPluginPath(std::string path);
+  std::vector<std::string> findPlugins(std::string directory);
+  Cell* getCellFromPlugin(int x,int y,int n,int m);
+  void getNextGen(Grid& gr);
+  Sprite* getSpriteFromPlugin();
+  void applyProbaOnCells(Grid& og,Grid& ng);
 };
+
 
 typedef Plugin* reg();
 

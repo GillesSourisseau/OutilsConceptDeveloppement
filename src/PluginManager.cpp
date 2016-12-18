@@ -19,9 +19,9 @@ vector<string> PluginManager::findPlugins(string directory){
   return pluginArray;
 }
 
-void PluginManager::loadPlugin(string path, string name){
+void* PluginManager::loadPlugin(int method, void* params[]){
   cout<<"inside loadPlugin method"<<endl;
-  void* handle = dlopen(path.c_str(),RTLD_NOW);
+  void* handle = dlopen(this->pathPlugin.c_str(),RTLD_NOW);
   if(!handle){
     cerr<<"handle error "<<dlerror()<<endl;
     exit(EXIT_FAILURE);
@@ -35,40 +35,45 @@ void PluginManager::loadPlugin(string path, string name){
     exit(EXIT_FAILURE);
   }
   cout<<"before retrieving the plugin impementation"<<endl;
-  Plugin* p = (*regFactory)();
-  cout<<"plugin is retrieved; proceed with registering"<<endl;
-  registerPlugin(p,name);
+  Plugin* p = nullptr;
+  p = (*regFactory)();
+  void* res=nullptr;
+  if(p!=nullptr){
+    if(method==1){//returne Plugin cell
+      res = p->getControllerCellType(1,2,3,4);
+      cout<<"end test"<<endl;
+    }
+  }
   dlclose(handle);
+  return res;
 }
 
-void PluginManager::registerPlugin(Plugin* p,string name){
-  cout<<"inside registerPlugin method"<<endl;
-  this->pluginsMap.insert(pair<string,Plugin*>(name,p));
+Cell* PluginManager::getCellFromPlugin(int i,int j,int n, int m){
+  void* params[] = {&i, &j, &n, &m};
+  Cell* res =(Cell*) loadPlugin(1,params);
+  return res;
+}
+
+
+void PluginManager::setPluginPath(string path){
+  this->pathPlugin = path;
 }
 
 PluginManager::PluginManager(){
   cout<<"inside pluginManager constructor"<<endl;
+  setPluginPath("./plugins/PluginBase.so");//init with default plugin
+
+  cout<<"This is the plugins List"<<endl;
   vector<string> plarr = findPlugins("./plugins/");
   for(int i=0;i<plarr.size();i++){
-    string base = plarr[i].substr(plarr[i].find_last_of("/"),plarr[i].size()-1);
+    string base = plarr[i].substr(plarr[i].find_last_of("/")+1,plarr[i].size()-1);
     string name = base.substr(0,base.find_last_of("."));
-    cout<<"plugin : "<<plarr[i]<<endl;
-    loadPlugin(plarr[i],name);
-    this->pluginsNames.push_back(name);
+    cout<<i<<" ) "<<plarr[i]<<endl;
   }
 }
 
 PluginManager::~PluginManager(){
 
-}
-
-vector<string> PluginManager::getPluginNames(){
-    return this->pluginsNames;
-}
-
-Plugin* PluginManager::getPlugin(string name){
-    Plugin* p = this->pluginsMap.find(name)->second;
-    return p;
 }
 
 
