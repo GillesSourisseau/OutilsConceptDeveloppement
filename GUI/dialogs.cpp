@@ -51,7 +51,12 @@ enum
     // listbox in samples dialog
     ID_LISTBOX,
     ID_CLOSE,
-    ID_CHOIX1
+    ID_CHOIX1,
+    ID_CHOIX2,
+    ID_CHOIX3,
+    ID_SLIDERDIALOG1,
+    ID_SLIDERDIALOG2
+
 
 };
 
@@ -63,7 +68,11 @@ enum
 // Event tables
 wxBEGIN_EVENT_TABLE(NewGameDialog, wxDialog)
     EVT_LISTBOX (ID_LISTBOX, NewGameDialog::OnListBox)
-    EVT_LISTBOX (ID_CHOIX1, NewGameDialog::OnExit)
+    EVT_RADIOBUTTON (ID_CHOIX1, NewGameDialog::OnChoix1)
+    EVT_RADIOBUTTON (ID_CHOIX2, NewGameDialog::OnChoix2)
+    EVT_RADIOBUTTON (ID_CHOIX3, NewGameDialog::OnChoix3)
+    EVT_COMMAND_SCROLL  (ID_SLIDERDIALOG1,    NewGameDialog::OnSliderDialog1)
+    EVT_COMMAND_SCROLL  (ID_SLIDERDIALOG2,    NewGameDialog::OnSliderDialog2)
 wxEND_EVENT_TABLE()
 
 
@@ -88,27 +97,80 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
 
   wxStaticBox *st = new wxStaticBox(panel, -1, wxT("Plugins"), 
       wxPoint(5, 5), wxSize(240, 150));
-  wxRadioButton *rb = new wxRadioButton(panel, -1, 
-      wxT("Plugin 1"), wxPoint(15, 30), wxDefaultSize, wxRB_GROUP);
 
-  wxRadioButton *rb1 = new wxRadioButton(panel, -1, 
-      wxT("Plugin 2"), wxPoint(15, 55));
-  wxRadioButton *rb2 = new wxRadioButton(panel, ID_CHOIX1, 
-      wxT("Plugin 3"), wxPoint(15, 80));
-  wxRadioButton *rb3 = new wxRadioButton(panel, -1, 
+    wxRadioButton *rb0 = new wxRadioButton(panel, -1, 
+      wxT("Ne rien faire"), wxPoint(15, 30), wxDefaultSize, wxRB_GROUP);
+  wxRadioButton *rb1 = new wxRadioButton(panel, ID_CHOIX1, 
+      wxT("Plugin 1"), wxPoint(15, 55));
+
+  wxRadioButton *rb2 = new wxRadioButton(panel, ID_CHOIX2, 
+      wxT("Plugin 2"), wxPoint(15, 80));
+  wxRadioButton *rb3 = new wxRadioButton(panel, ID_CHOIX3, 
+      wxT("Plugin 3"), wxPoint(15, 105));
+ /* wxRadioButton *rb3 = new wxRadioButton(panel, -1, 
       wxT("Custom"), wxPoint(15, 105));
   wxTextCtrl *tc = new wxTextCtrl(panel, -1, wxT(""), 
+      wxPoint(95, 105));*/
+
+  // wxButton *okButton = new wxButton(this, -1, wxT("Ok"), 
+  //     wxDefaultPosition, wxSize(70, 30));
+  // wxButton *closeButton = new wxButton(this, wxCANCEL, wxT("cHANGER"), 
+  //     wxDefaultPosition, wxSize(70, 30));
+
+  wxSizer *sizerBtns = CreateButtonSizer(wxOK|wxCANCEL);
+    if ( sizerBtns )
+    {
+        hbox->Add(sizerBtns, wxSizerFlags().Expand().Border());
+   }
+
+ //wxPanel *panel2 = new wxPanel(this, -1);
+
+
+   wxStaticBox *st1 = new wxStaticBox(panel, -1, wxT("Taille"), 
+      wxPoint(5, 160), wxSize(240, 75));
+
+   tailleX = 50;
+   tailleY = 50;
+
+
+    text_taille = new wxStaticText(panel, wxID_ANY,
+        wxEmptyString,
+        wxPoint(125,185),
+        wxSize(100,100),
+        wxALIGN_CENTER | wxST_NO_AUTORESIZE);
+   // wxALIGN_CENTER | wxST_NO_AUTORESIZE);
+
+    UpdateInfoTextDialog();
+
+
+    slider1 = new wxSlider(panel, ID_SLIDERDIALOG1,
+        50, 20, 100,
+        wxPoint(15,185),
+        wxSize(100, wxDefaultCoord),
+        wxSL_HORIZONTAL | wxSL_AUTOTICKS);
+
+    slider2 = new wxSlider(panel, ID_SLIDERDIALOG2,
+        50, 20, 100,
+        wxPoint(15,205),
+        wxSize(100, wxDefaultCoord),
+        wxSL_HORIZONTAL | wxSL_AUTOTICKS);
+
+
+
+   // slider = new wxSlider(this, ID_SLIDERDIALOG, 50, 0, 100, wxPoint(15, 185), 
+   //      wxSize(1, 100), wxSL_HORIZONTAL);
+ /* wxTextCtrl *tc = new wxTextCtrl(panel2, -1, wxT(""), 
       wxPoint(95, 105));
+   wxTextCtrl *tc = new wxTextCtrl(panel2, -1, wxT(""), 
+      wxPoint(140, 135));*/
 
-  wxButton *okButton = new wxButton(this, -1, wxT("Ok"), 
-      wxDefaultPosition, wxSize(70, 30));
-  wxButton *closeButton = new wxButton(this, wxCANCEL, wxT("Close"), 
-      wxDefaultPosition, wxSize(70, 30));
 
-  hbox->Add(okButton, 1);
-  hbox->Add(closeButton, 1, wxLEFT, 5);
+
+  // hbox->Add(okButton, 1);
+  // hbox->Add(closeButton, 1, wxLEFT, 5);
 
   vbox->Add(panel, 1);
+  //vbox->Add(panel2, 1);
   vbox->Add(hbox, 0, wxALIGN_CENTER | wxTOP | wxBOTTOM, 10);
 
 
@@ -195,6 +257,7 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
 //     sizer3->SetSizeHints(this);
 //     sizer3->Fit(this);
 //     Centre(wxBOTH | wxCENTRE_ON_SCREEN);
+
 }
 
 NewGameDialog::~NewGameDialog()
@@ -206,6 +269,48 @@ NewGameDialog::~NewGameDialog()
 // {
 //     return g_patterns[m_value];
 // }
+
+
+void NewGameDialog::UpdateInfoTextDialog()
+{
+    wxString msg;
+
+    msg.Printf(_(" TailleX: %lu  TailleY: %lu "),
+            tailleX,
+            tailleY);
+    text_taille->SetLabel(msg);
+
+    /*    msg.Printf(_(" Generation: %lu (T: %lu ms)"),
+               m_tics,
+               m_topspeed? 0 : m_interval);
+    m_text->SetLabel(msg);*/
+}
+
+void NewGameDialog::OnSliderDialog1(wxScrollEvent& event)
+{
+    tailleX = event.GetPosition();
+
+    // if (m_running)
+    // {
+    //     OnStop();
+    //     OnStart();
+    // }
+
+   UpdateInfoTextDialog();
+}
+
+void NewGameDialog::OnSliderDialog2(wxScrollEvent& event)
+{
+    tailleY = event.GetPosition();
+
+    // if (m_running)
+    // {
+    //     OnStop();
+    //     OnStart();
+    // }
+
+    UpdateInfoTextDialog();
+}
 
 void NewGameDialog::OnListBox(wxCommandEvent& event)
 {
@@ -232,6 +337,21 @@ void NewGameDialog::OnExit( wxCommandEvent& event )
     std::cout << "youhou" ; // Tells the OS to quit running this process*/
 }
 
+
+void NewGameDialog::OnChoix1( wxCommandEvent& event )
+{
+    wxLogMessage("Le choix1");
+}
+
+void NewGameDialog::OnChoix2( wxCommandEvent& event )
+{
+    wxLogMessage("Le choix2");
+}
+
+void NewGameDialog::OnChoix3( wxCommandEvent& event )
+{
+    wxLogMessage("Le choix3");
+}
 // --------------------------------------------------------------------------
 // LifeAboutDialog
 // --------------------------------------------------------------------------

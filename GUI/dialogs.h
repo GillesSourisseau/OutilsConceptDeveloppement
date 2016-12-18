@@ -29,11 +29,23 @@ public:
     // event handlers
     void OnListBox(wxCommandEvent &event);
     void OnExit(wxCommandEvent &event);
+    void OnChoix1(wxCommandEvent &event);
+    void OnChoix2(wxCommandEvent &event);
+    void OnChoix3(wxCommandEvent &event);
+    void UpdateInfoTextDialog();
+    void OnSliderDialog1(wxScrollEvent&  event);
+    void OnSliderDialog2(wxScrollEvent&  event);
+
 
 private:
     // any class wishing to process wxWidgets events must use this macro
     wxDECLARE_EVENT_TABLE();
 
+    wxSlider    *slider1;
+    wxSlider    *slider2;
+    wxStaticText *text_taille;
+    long        tailleX;
+    long         tailleY;
     int         m_value;
     wxListBox  *m_list;
     wxTextCtrl *m_text;
