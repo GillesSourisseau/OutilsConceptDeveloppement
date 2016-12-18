@@ -57,9 +57,9 @@ void* PluginManager::loadPlugin(int method, void* params[]){
       cout<<"sprite has been retrieved"<<endl;
     }else if(method == 4){
       cout<<"applying probabilities on the grid"<<endl;
-      Grid& og = (Grid&) params[0];
-      Grid& ng = (Grid&) params[1];
-      p->applyProba(og,ng);
+      Grid* og = (Grid*) params[0];
+      Grid* ng = (Grid*) params[1];
+      p->applyProba(*og,*ng);
       cout<<"end applyproba method"<<endl;
     }
   }
@@ -85,8 +85,8 @@ Sprite* PluginManager::getSpriteFromPlugin(){
   return res;
 }
 
-void PluginManager::applyProbaOnCells(Grid& og,Grid& ng){
-  void* params[] = {&og,&ng};
+void PluginManager::applyProbaOnCells(Grid* og,Grid* ng){
+  void* params[] = {og,ng};
   loadPlugin(4,params);
 }
 

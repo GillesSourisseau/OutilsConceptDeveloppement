@@ -19,7 +19,7 @@ public:
   Cell* getCellFromPlugin(int x,int y,int n,int m);
   void getNextGen(Grid* gr);
   Sprite* getSpriteFromPlugin();
-  void applyProbaOnCells(Grid& og,Grid& ng);
+  void applyProbaOnCells(Grid* og,Grid* ng);
 };
 
 
