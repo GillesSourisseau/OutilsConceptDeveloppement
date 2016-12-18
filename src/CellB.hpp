@@ -7,7 +7,7 @@ class CellB : public Cell{
     public:
         CellB(int x, int y);
         virtual ~CellB();
-        void findNeighbors(int n, int m);
+  void findNeighbors(int n,int m);
 };
 
 

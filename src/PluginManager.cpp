@@ -40,8 +40,27 @@ void* PluginManager::loadPlugin(int method, void* params[]){
   void* res=nullptr;
   if(p!=nullptr){
     if(method==1){//returne Plugin cell
-      res = p->getControllerCellType(1,2,3,4);
+      int* x =(int*) params[0];
+      int* y =(int*) params[1];
+      int* n =(int*) params[2];
+      int* m =(int*) params[3];
+      res = p->getControllerCellType(*x,*y,*n,*m);
       cout<<"end test"<<endl;
+    }else if (method==2){
+      cout<<"now we are going to get the next state of the grid"<<endl;
+      Grid& g = (Grid&) params[0];
+      p->nextGeneration(g);
+      cout<<"method nextGeneration ended"<<endl;
+    }else if(method == 3){
+      cout<<"getting the sprite class from the plugin"<<endl;
+      res = p->getControllerSprite();
+      cout<<"sprite has been retrieved"<<endl;
+    }else if(method == 4){
+      cout<<"applying probabilities on the grid"<<endl;
+      Grid& og = (Grid&) params[0];
+      Grid& ng = (Grid&) params[1];
+      p->applyProba(og,ng);
+      cout<<"end applyproba method"<<endl;
     }
   }
   dlclose(handle);
@@ -52,6 +71,23 @@ Cell* PluginManager::getCellFromPlugin(int i,int j,int n, int m){
   void* params[] = {&i, &j, &n, &m};
   Cell* res =(Cell*) loadPlugin(1,params);
   return res;
+}
+
+void PluginManager::getNextGen(Grid& gr){
+  void* params[] = {&gr};
+  loadPlugin(2,params);
+}
+
+Sprite* PluginManager::getSpriteFromPlugin(){
+  int i = 1;
+  void* params[] = {&i};
+  Sprite* res = (Sprite*) loadPlugin(3,params);
+  return res;
+}
+
+void PluginManager::applyProbaOnCells(Grid& og,Grid& ng){
+  void* params[] = {&og,&ng};
+  loadPlugin(4,params);
 }
 
 

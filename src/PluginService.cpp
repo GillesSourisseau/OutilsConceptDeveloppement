@@ -1,12 +1,13 @@
 #include "PluginService.hpp"
-#include <iostream>
+#include <string>
+using namespace std;
 
-Plugin* PluginService::p = nullptr;
+string PluginService::pathPlugin = "./plugins/PluginBase.so";
 
-void PluginService::addPlugin(Plugin* pp){
-  PluginService::p = pp;
+void PluginService::setPath(string path){
+  PluginService::pathPlugin = path;
 }
 
-Plugin* PluginService::getPlugin(){
-  return p;
+string PluginService::getPath(){
+  return PluginService::pathPlugin;
 }

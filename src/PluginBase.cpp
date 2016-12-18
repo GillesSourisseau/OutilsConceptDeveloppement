@@ -44,7 +44,9 @@ void PluginBase::nextGeneration(Grid& gr){
 
 Cell* PluginBase::getControllerCellType(int x, int y, int n, int m){
   cout<<"inside plugin method returning a derived class Cell"<<endl;
-  return new CellB(x,y);
+  CellB* cb = new CellB(x,y);
+  cb->findNeighbors(n,m);
+  return cb;
 }
 
 

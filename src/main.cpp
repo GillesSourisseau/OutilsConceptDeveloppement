@@ -33,22 +33,19 @@ void showNeighbors(Grid gr, int size){
 
 int main(){
   int n,m,resineaux;
+  cout<<PluginService::getPath()<<endl;
   PluginManager* pm = new PluginManager();
 
   vector<string> names = pm->findPlugins("./plugins/");
   for(int i=0;i<names.size();i++){
     cout<<i<<" ) "<<names[i]<<endl;
   }
+
+  //here you should ask the user if he wants to change the default plugin to another one
   
   Cell* cl = pm->getCellFromPlugin(1,2,3,4);
-  /*
-  if(plugin != nullptr){
-    cout<<"OKKK plugin is not null"<<endl;
-    plugin->getControllerCellType(1,2,3,4);
-    cout<<"END TEST"<<endl;
-  }
-  */
   cout<<cl->getPion();
+  
   cout<<"enter the number of rows : ";
   cin>>n;
   cout<<"enter the number of columns : ";
@@ -59,12 +56,22 @@ int main(){
   cout<<"before constructing the grid"<<endl;
 
   Grid platou(n,m,resineaux);
+  /*
+  for(int i=0;i<platou.sizeRows()*platou.sizeColumns();i++){
+    cout<<"before findNeighbors"<<endl;
+    cout<<(platou.getTab())[i]->getCoordX()<<" "<<(platou.getTab())[i]->getCoordY()<<" : "<<(platou.getTab())[i]->getPion();// this works
+    (platou.getTab())[i]->findNeighbors(platou.sizeRows(),platou.sizeColumns());
+    cout<<"after findNeighbors"<<endl;
+  }
+  */
+
 
   cout<<"after constructing the grid"<<endl;
 
   showGrid(platou);
 
   cout<<"after show method"<<endl;
+  cout<<"number of possible states: "<<(platou.getTab())[1]->getNrPions()<<endl;
 
   showNeighbors(platou,10);
 

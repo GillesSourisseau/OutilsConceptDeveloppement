@@ -1,13 +1,12 @@
 #ifndef __PSERVICE__
 #define __PSERVICE__
-
-#include "PluginInterface.hpp"
+#include <string>
 
 class PluginService{
 public:
-  static Plugin* p;
-  static void addPlugin(Plugin* pp);
-  static Plugin* getPlugin();
+  static std::string pathPlugin;
+  static void setPath(std::string path);
+  static std::string getPath();
 };
 
 #endif //__PSERVICE__

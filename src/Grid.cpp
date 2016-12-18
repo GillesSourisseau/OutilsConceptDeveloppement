@@ -1,5 +1,6 @@
 #include "Grid.hpp"
 #include "PluginService.hpp"
+#include "PluginManager.hpp"
 #include <iostream>
 #include <set>
 #include <map>
@@ -10,23 +11,20 @@ using namespace std;
 
 Grid::Grid(int n, int m, int resineaux) : n(n), m(m), resineaux(resineaux){
   cout<<"inside grid constructor"<<endl;
-  Plugin* p= PluginService::getPlugin();
+  PluginManager* p = new PluginManager();
+  p->setPluginPath(PluginService::getPath());
   if(p==nullptr){
-    cout<<"null pointer to plugin"<<endl;
+    cout<<"ERRORR: null pointer to pluginManager"<<endl;
+    exit(1);
   }
   int ind = 0;
   for(int i=0;i<n;i++){
     cout<<"one step"<<endl;
     for(int j=0;j<m;j++){
-      tab.push_back(p->getControllerCellType(i,j,n,m));
+      tab.push_back(p->getCellFromPlugin(i,j,n,m));
       cout<<"case "<<i<<" "<<j<<" created in tab["<<ind<<"]"<<endl;
       ind++;
     }
-  }
-  for(int i=0;i<n*m;i++){
-    cout<<"before findNeighbors"<<endl;
-    tab[i]->findNeighbors(n,m);
-    cout<<"after findNeighbors"<<endl;
   }
   cout<<"before randomInitialise; resineaux = "<<this->resineaux<<endl;
   randomInitialise(1);
