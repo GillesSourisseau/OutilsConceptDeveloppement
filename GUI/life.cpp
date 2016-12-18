@@ -505,6 +505,39 @@ void BasicDrawPane::render(wxDC&  dc)
      dc.SetPen(*wxBLACK_PEN);
 
 
+     if (m_tailleX <= 20 && m_tailleY <= 20){
+
+        cellsize = 18;
+
+     } else {
+
+         if (m_tailleX <= 40 && m_tailleY <= 40){
+
+            cellsize = 14;
+
+         } else {
+
+                if(m_tailleX <= 60 && m_tailleY <= 60){
+
+                    cellsize = 10;
+
+                } else {
+
+                        if (m_tailleX <= 80 && m_tailleY <= 80){
+
+                            cellsize = 7;
+                        } else {
+
+                            cellsize = 6;
+                        }
+                }
+         }
+    }
+
+
+
+
+
     int scale = cellsize;
     for (int k = 0; k < m_tailleX; k++){
         for (int j= 0; j < m_tailleY; j++){
