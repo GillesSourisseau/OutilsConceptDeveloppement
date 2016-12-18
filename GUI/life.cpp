@@ -31,7 +31,7 @@
 
 #include "life.h"
 // #include "game.h"
-// #include "dialogs.h"
+#include "dialogs.h"
 // #include "reader.h"
 
 // --------------------------------------------------------------------------
@@ -204,7 +204,7 @@ LifeFrame::LifeFrame() :
     ADD_TOOL(ID_NEW, tbBitmaps[0], _("New Game"), _("Start a new game"));
 
     toolBar->AddSeparator();
-    ADD_TOOL(ID_INFO, tbBitmaps[1], _("Description"), _("Show description"));
+    ADD_TOOL(wxID_ABOUT, tbBitmaps[1], _("Description"), _("Show description"));
     toolBar->AddSeparator();
     ADD_TOOL(ID_START, tbBitmaps[2], _("Start"), _("Start"));
     ADD_TOOL(wxID_STOP, tbBitmaps[3], _("Stop"), _("Stop"));
@@ -331,6 +331,7 @@ void LifeFrame::OnMenu(wxCommandEvent& event)
     {
         case ID_NEW:
         {
+            NewGameDialog dialog(this);
             // // stop if it was running
             // OnStop();
             // m_life->Clear();
@@ -341,26 +342,14 @@ void LifeFrame::OnMenu(wxCommandEvent& event)
         }
         case wxID_ABOUT:
         {
-            // LifeAboutDialog dialog(this);
-            // dialog.ShowModal();
+            LifeAboutDialog dialog(this);
+            dialog.ShowModal();
             break;
         }
         case wxID_EXIT:
         {
             // true is to force the frame to close
             Close(true);
-            break;
-        }
-        case ID_INFO:
-        {
-           /* wxString desc = m_life->GetDescription();
-
-            if ( desc.empty() )
-                desc = _("Not available");
-
-            // should we make the description editable here?
-            wxMessageBox(desc, _("Description"), wxOK | wxICON_INFORMATION);*/
-
             break;
         }
         case ID_START   : /*OnStart();*/ break;
