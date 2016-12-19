@@ -86,7 +86,7 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
       wxT("Inondation"), wxPoint(15, 55));
 
   wxRadioButton *rb2 = new wxRadioButton(panel, ID_CHOIX2, 
-      wxT("Plugin 2"), wxPoint(15, 80));
+      wxT("Life simulation"), wxPoint(15, 80));
 
 
   wxSizer *sizerBtns = CreateButtonSizer(wxOK|wxCANCEL);
@@ -189,7 +189,8 @@ void NewGameDialog::OnChoix1( wxCommandEvent& event )
 
 void NewGameDialog::OnChoix2( wxCommandEvent& event )
 {
-    wxLogMessage("Le choix2");
+  pluginPath= "./plugins/PluginLife.so";
+    wxLogMessage("Plugin Life");
 }
 
 long NewGameDialog::GetTailleX()
