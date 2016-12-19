@@ -22,9 +22,10 @@ void PluginWar::nextGeneration(Grid& gr)
 
 	cout<<"inside plugin method nextgeneration() OF PLUGINWAR that outputs the next gen of the grid"<<endl;
 	vector<int> temp;
-	boolean fought = false;
-	boolean redMove = false;
-	boolean blueMove = false;
+	bool fought = false;
+	bool redMove = false;
+	bool blueMove = false;
+	int cpt = 0;
 
 	//init the temp vector with 0 state
 	for(int ind=0;ind < gr.sizeRows() * gr.sizeColumns();ind++)
@@ -143,7 +144,7 @@ void PluginWar::nextGeneration(Grid& gr)
 
 Cell* PluginWar::getControllerCellType(int x, int y, int n, int m){
 	cout<<"inside plugin method returning a derived class Cell"<<endl;
-	CellW* cb = new CellW(x,y);
+	CellW* cw = new CellW(x,y);
 	cw->findNeighbors(n,m);
 	return cw;
 }
