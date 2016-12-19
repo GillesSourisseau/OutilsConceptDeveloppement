@@ -76,6 +76,8 @@ private:
     void OnTimer(wxTimerEvent& event);
     void OnClose(wxCloseEvent& event);
     void OnStep();
+    void OnStart();
+    void OnStop();
     void OnNewGame(wxCommandEvent& WXUNUSED(event));
 
 

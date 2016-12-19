@@ -321,12 +321,6 @@ void LifeFrame::UpdateUI()
     GetMenuBar()->Enable(wxID_STOP,  m_running);
     GetMenuBar()->Enable(ID_TOPSPEED, !m_topspeed);
 
-    // zooming
-   // int cellsize = m_canvas->GetCellSize();
-    // GetToolBar()->EnableTool(wxID_ZOOM_IN,  cellsize < 32);
-    // GetToolBar()->EnableTool(wxID_ZOOM_OUT, cellsize > 1);
-    // GetMenuBar()->Enable(wxID_ZOOM_IN,  cellsize < 32);
-    // GetMenuBar()->Enable(wxID_ZOOM_OUT, cellsize > 1);
 }
 
 // Event handlers -----------------------------------------------------------
@@ -348,27 +342,27 @@ void LifeFrame::OnMenu(wxCommandEvent& event)
             Close(true);
             break;
         }
-        case ID_START   : /*OnStart();*/ break;
+        case ID_START   : OnStart(); break;
         case ID_STEP    : OnStep(); break;
-        case wxID_STOP  : /*OnStop();*/ break;
+        case wxID_STOP  : OnStop(); break;
         case ID_TOPSPEED:
         {
-            // m_running = true;
-            // m_topspeed = true;
-            // UpdateUI();
+            m_running = true;
+            m_topspeed = true;
+            UpdateUI();
             
-            // const long YIELD_INTERVAL = 1000 / 30;
-            // wxMilliClock_t lastyield = 0, now;
+            const long YIELD_INTERVAL = 1000 / 30;
+            wxMilliClock_t lastyield = 0, now;
             
-            // while (m_running && m_topspeed)
-            // {
-            //     OnStep();
-            //     if ( (now=wxGetLocalTimeMillis()) - lastyield > YIELD_INTERVAL)
-            //     {
-            //         wxYield();
-            //         lastyield = now;
-            //     }
-            // }
+            while (m_running && m_topspeed)
+            {
+                OnStep();
+                if ( (now=wxGetLocalTimeMillis()) - lastyield > YIELD_INTERVAL)
+                {
+                    wxYield();
+                    lastyield = now;
+                }
+            }
  
             break;
         }
@@ -404,18 +398,18 @@ void LifeFrame::OnSlider(wxScrollEvent& event)
 {
     m_interval = event.GetPosition() * 100;
 
-    // if (m_running)
-    // {
-    //     OnStop();
-    //     OnStart();
-    // }
+    if (m_running)
+    {
+        OnStop();
+        OnStart();
+    }
 
     UpdateInfoText();
 }
 
 void LifeFrame::OnTimer(wxTimerEvent& WXUNUSED(event))
 {
-  //  OnStep();
+    OnStep();
 }
 
 void LifeFrame::OnClose(wxCloseEvent& WXUNUSED(event))
@@ -428,26 +422,26 @@ void LifeFrame::OnClose(wxCloseEvent& WXUNUSED(event))
     Destroy();
 }
 
-// void LifeFrame::OnStart()
-// {
-//     if (!m_running)
-//     {
-//         m_timer->Start(m_interval);
-//         m_running = true;
-//         UpdateUI();
-//     }
-// }
+void LifeFrame::OnStart()
+{
+    if (!m_running)
+    {
+        m_timer->Start(m_interval);
+        m_running = true;
+        UpdateUI();
+    }
+}
 
-// void LifeFrame::OnStop()
-// {
-//     // if (m_running)
-//     // {
-//     //     m_timer->Stop();
-//     //     m_running = false;
-//     //     m_topspeed = false;
-//     //     UpdateUI();
-//     // }
-// }
+void LifeFrame::OnStop()
+{
+    if (m_running)
+    {
+        m_timer->Stop();
+        m_running = false;
+        m_topspeed = false;
+        UpdateUI();
+    }
+}
 
 void LifeFrame::OnStep()
 {
