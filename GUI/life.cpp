@@ -403,7 +403,7 @@ void LifeFrame::OnClose(wxCloseEvent& WXUNUSED(event))
     // the frame won't be actually destroyed until there are no
     // more pending events, and this in turn won't ever happen
     // if the timer is running faster than the window can redraw.
-   OnStop();
+   //OnStop();
     Destroy();
 }
 
@@ -438,14 +438,14 @@ void LifeFrame::OnStep()
     UpdateInfoText();
 
 
-    OnStop();
+    //OnStop();
 }
 
 
 void LifeFrame::OnSteps()
 {
      // stop if it was running
-    OnStop();
+    //OnStop();
 
     // dialog box
     OnStepsDialog dialog(this);
