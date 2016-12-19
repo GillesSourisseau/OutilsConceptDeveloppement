@@ -42,12 +42,17 @@ void Grid::randomInitialise(int pion){
   cout<<"number of cells to init : "<<initsize<<endl;
   int i=0;
   srand(time(0));
+
+  int castedint = (int) initsize;
+  cout<<"CASTEDINT : "<<castedint<<endl;
     
   set<pairs> initSet;
   pairs p; 
-  while(i<initsize){
+
+  while(i<castedint){
     int x = rand() % n;
     int y = rand() % m;
+
     p.first = x;
     p.second = y; 
     pair<set<pairs>::iterator,bool> ret = initSet.insert(p);
@@ -60,8 +65,19 @@ void Grid::randomInitialise(int pion){
 
   for(it = initSet.begin(); it != initSet.end(); it++){
     pairs f = *it;
+    std::cout << "COUCOU4" << std::endl;
     Cell* c = getCellAtIndex(f.first,f.second);
-    c->setPion(pion);
+    std::cout << f.first << std::endl;
+    std::cout << f.second << std::endl;
+    if(c != nullptr){
+    std::cout << "pion" << c->getPion() << std::endl;
+    std::cout << "sizeNeighbors" << c->getSizeNeighbors() << std::endl;
+    std::cout << "CoordX" << c->getCoordX() << std::endl;
+    std::cout << "CoordY" << c->getCoordY() << std::endl;
+    std::cout << "NrPions" << c->getNrPions() << std::endl;
+       c->setPion(pion);
+    }
+    std::cout << "COUCOU6" << std::endl;
   }
 }
 

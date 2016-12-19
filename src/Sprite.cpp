@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Sprite::Sprite(string imageName) : imageName(imageName){
+Sprite::Sprite(string imageName0, string imageName1) : imageName0(imageName0),imageName1(imageName1){
 
 }
 
@@ -11,10 +11,18 @@ Sprite::~Sprite(){
 
 }
 
-string Sprite::getImageName(){
-    return this->imageName;
+string Sprite::getImage0(){
+    return this->imageName0;
 }
 
-void Sprite::setImageName(string imageName){
-    this->imageName = imageName;
+string Sprite::getImage1(){
+    return this->imageName1;
+}
+
+void Sprite::setImage0(string imageName){
+    this->imageName0 = imageName;
+}
+
+void Sprite::setImage1(string imageName){
+    this->imageName1 = imageName;
 }
