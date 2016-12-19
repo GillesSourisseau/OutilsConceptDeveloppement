@@ -6,7 +6,7 @@ CXXFLAGS= -std=c++11 -g
 PluginBase.so:Cell.cpp Sprite.cpp CellB.cpp SpriteB.cpp PluginBase.cpp Grid.cpp PluginService.cpp PluginManager.cpp PluginBase.hpp PluginInterface.hpp
 	g++ -shared -std=c++11 -g -rdynamic -fPIC -Wl,-soname,PluginBase.so Cell.cpp Sprite.cpp CellB.cpp SpriteB.cpp PluginBase.cpp Grid.cpp PluginService.cpp PluginManager.cpp -lc -o ./plugins/PluginBase.so
 
-PluginBase.so:Cell.cpp Sprite.cpp CellW.cpp SpriteW.cpp PluginWar.cpp Grid.cpp PluginService.cpp PluginManager.cpp PluginWar.hpp PluginInterface.hpp
+PluginWar.so:Cell.cpp Sprite.cpp CellW.cpp SpriteW.cpp PluginWar.cpp Grid.cpp PluginService.cpp PluginManager.cpp PluginWar.hpp PluginInterface.hpp
 	g++ -shared -std=c++11 -g -rdynamic -fPIC -Wl,-soname,PluginWar.so Cell.cpp Sprite.cpp CellW.cpp SpriteW.cpp PluginWar.cpp Grid.cpp PluginService.cpp PluginManager.cpp -lc -o ./plugins/PluginWar.so
 
 

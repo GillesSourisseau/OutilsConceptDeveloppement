@@ -1,5 +1,6 @@
 *.o
 src/plugins/PluginBase.so
+src/plugins/PluginWar.so
 gameOfLife
 core
 *.hpp~

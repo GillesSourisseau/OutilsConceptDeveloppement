@@ -2,6 +2,7 @@
 #include "CellB.hpp"
 #include "SpriteB.hpp"
 #include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -64,5 +65,8 @@ void PluginBase::applyProba(Grid& oldGrid, Grid& newGrid){
 
 
 Sprite* PluginBase::getControllerSprite(){
-  return new SpriteB();
+  map<int,string> m;
+  m.insert(std::make_pair(0,"white"));
+  m.insert(std::make_pair(1,"black"));
+  return new SpriteB(m);
 }

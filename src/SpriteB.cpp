@@ -1,12 +1,10 @@
 #include "SpriteB.hpp"
 #include <string>
+#include <map>
 using namespace std;
 
-SpriteB::SpriteB(){
-  map<int, string> m;
-  m.insert(0,"red");
-  m.insert(1,"blue");
-  this->imageNames = m;
+SpriteB::SpriteB(map<int,string> imageNames) : Sprite(imageNames){
+  
 }
 
 SpriteB::~SpriteB(){

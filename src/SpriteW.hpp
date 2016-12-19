@@ -2,11 +2,12 @@
 #define __SPRITEW__
 
 #include <string>
+#include <map>
 #include "Sprite.hpp"
 
 class SpriteW : public Sprite{
 public:
-  SpriteW();
+  SpriteW(std::map<int,std::string> imageNames);
   ~SpriteW();
 };
 
