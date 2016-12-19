@@ -14,7 +14,7 @@
 #include "wx/wx.h"
 #include "wx/sizer.h"
 
-// #include "game.h"
+#include "../src/PluginManager.hpp"
 
 
 // --------------------------------------------------------------------------
@@ -32,9 +32,16 @@ public:
  
     void render(wxDC& dc);
 
+    Grid* getGrid();
+    PluginManager* getPluginManager();
+
     int cellsize;
     long m_tailleX;
     long m_tailleY;
+
+    PluginManager *pluginManager;
+    Grid			*grid;
+
 
  
     DECLARE_EVENT_TABLE()
@@ -55,6 +62,7 @@ public:
     // member functions
     void UpdateInfoText();
     void UpdateUI();
+    
 
     BasicDrawPane *drawPane;
 
@@ -64,14 +72,12 @@ private:
 
     // event handlers
     void OnMenu(wxCommandEvent& event);
-    void OnOpen(wxCommandEvent& event);
-    void OnSamples(wxCommandEvent& event);
-    void OnNavigate(wxCommandEvent& event);
-    void OnZoom(wxCommandEvent& event);
     void OnSlider(wxScrollEvent& event);
     void OnTimer(wxTimerEvent& event);
     void OnClose(wxCloseEvent& event);
+    void OnStep();
     void OnNewGame(wxCommandEvent& WXUNUSED(event));
+
 
     // event handler helpers
    /* void OnStart();

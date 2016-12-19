@@ -51,6 +51,7 @@ void Cell::setNrPions(int nrPions){
 }
 
 void Cell::validateCoords(int* x, int* y,int n, int m){
+    std::cout << "VALIDATE COORDS ???????" << std::endl;
     if(*x<0 && *y<0){
         *x = n-1;
         *y = m-1;

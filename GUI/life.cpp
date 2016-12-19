@@ -219,7 +219,7 @@ LifeFrame::LifeFrame() :
 #endif // wxUSE_STATUSBAR
 
     // game and timer
-    // m_life     = new Life();
+ 
     m_timer    = new wxTimer(this, ID_TIMER);
     m_running  = false;
     m_topspeed = false;
@@ -240,6 +240,8 @@ LifeFrame::LifeFrame() :
     wxPanel *panel2 = new wxPanel(this, wxID_ANY);
 
     drawPane = new BasicDrawPane( panel1);
+    drawPane->pluginManager = new PluginManager();
+    drawPane->grid = new Grid(20,20,5);
     drawPane->cellsize = 6; 
     drawPane->m_tailleX = 100;
     drawPane->m_tailleY = 100;
@@ -303,6 +305,9 @@ void LifeFrame::UpdateInfoText()
     m_text->SetLabel(msg);
 }
 
+
+
+
 // Enable or disable tools and menu entries according to the current
 // state. See also wxEVT_UPDATE_UI events for a slightly different
 // way to do this.
@@ -344,7 +349,7 @@ void LifeFrame::OnMenu(wxCommandEvent& event)
             break;
         }
         case ID_START   : /*OnStart();*/ break;
-        case ID_STEP    : /*OnStep();*/ break;
+        case ID_STEP    : OnStep(); break;
         case wxID_STOP  : /*OnStop();*/ break;
         case ID_TOPSPEED:
         {
@@ -384,8 +389,8 @@ void LifeFrame::OnNewGame(wxCommandEvent& WXUNUSED(event)){
         drawPane->m_tailleX = dialog.GetTailleX();
         drawPane->m_tailleY = dialog.GetTailleY();
 
-
-        // m_life->Clear()
+       	delete(drawPane->grid); 
+        drawPane->grid = new Grid(drawPane->m_tailleX,drawPane->m_tailleY,30);
 
         drawPane->paintNow();
         m_tics = 0;
@@ -444,24 +449,44 @@ void LifeFrame::OnClose(wxCloseEvent& WXUNUSED(event))
 //     // }
 // }
 
-// void LifeFrame::OnStep()
-// {
-//     // if (m_life->NextTic())
-//     // {
-//     //     m_tics++;
-//     //     m_canvas->Refresh();
-//     //     UpdateInfoText();
-//     // }
-//     // else
-//     //     OnStop();
-// }
+void LifeFrame::OnStep()
+{
+	drawPane->pluginManager->getNextGen(drawPane->grid);
+
+	m_tics++;
+
+	drawPane->paintNow();
+	UpdateInfoText();
 
 
+
+    // if (m_life->NextTic())
+    // {
+    //     m_tics++;
+    //     m_canvas->Refresh();
+    //     UpdateInfoText();
+    // }
+    // else
+    //     OnStop();
+}
+
+ Grid* BasicDrawPane::getGrid(){
+
+ 	return grid;
+ }
+
+
+PluginManager* BasicDrawPane::getPluginManager(){
+
+	return pluginManager;
+}
 
 BasicDrawPane::BasicDrawPane(wxWindow* parent) :
 wxPanel(parent)
 {
 }
+
+
 
 /*
  * Called by the system of by wxWidgets when the panel needs
@@ -504,6 +529,10 @@ void BasicDrawPane::render(wxDC&  dc)
      dc.SetBrush(*wxWHITE_BRUSH); // blue filling
      dc.SetPen(*wxBLACK_PEN);
 
+     m_tailleX = grid->sizeRows();
+     m_tailleY = grid->sizeColumns();
+
+     int pion;
 
      if (m_tailleX <= 20 && m_tailleY <= 20){
 
@@ -542,13 +571,50 @@ void BasicDrawPane::render(wxDC&  dc)
     for (int k = 0; k < m_tailleX; k++){
         for (int j= 0; j < m_tailleY; j++){
 
-            if (j%2 == 1){
-                dc.SetBrush(*wxBLACK_BRUSH);
+            // if (j%2 == 1){
+            //     dc.SetBrush(*wxBLACK_BRUSH);
 
-            } else {
+            // } else {
 
-                dc.SetBrush(*wxWHITE_BRUSH);
-            }
+            //     dc.SetBrush(*wxWHITE_BRUSH);
+            // }
+
+        	pion = grid->getCellAtIndex(k,j)->getPion();
+
+        	switch(pion){
+
+        		case 0: 
+        				 dc.SetBrush(*wxWHITE_BRUSH);
+        		break;
+
+        		case 1:
+        				 dc.SetBrush(*wxBLACK_BRUSH);
+        		break;
+
+        		case 2:
+        				 dc.SetBrush(*wxBLUE_BRUSH);
+        		break;
+
+
+        		case 3:
+        				 dc.SetBrush(*wxRED_BRUSH);
+        		break;
+
+
+        		case 4:
+        				 dc.SetBrush(*wxGREEN_BRUSH);
+        		break;
+
+
+
+        		case 5:
+        				 dc.SetBrush(*wxYELLOW_BRUSH);
+        		break; 
+        				 
+        		default:
+        				dc.SetBrush(*wxBLACK_BRUSH);
+
+        	}
 
 
             dc.DrawRectangle(k*scale, j*scale, cellsize, cellsize);
