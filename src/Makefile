@@ -1,4 +1,4 @@
-all:gameOfLife PluginBase.so PluginWar.so
+all:gameOfLife PluginBase.so PluginWar.so PluginLife.so
 
 CXXFLAGS= -std=c++11 -g
 
@@ -8,6 +8,9 @@ PluginBase.so:Cell.cpp Sprite.cpp CellB.cpp SpriteB.cpp PluginBase.cpp Grid.cpp 
 
 PluginWar.so:Cell.cpp Sprite.cpp CellW.cpp SpriteW.cpp PluginWar.cpp Grid.cpp PluginService.cpp PluginManager.cpp PluginWar.hpp PluginInterface.hpp
 	g++ -shared -std=c++11 -g -rdynamic -fPIC -Wl,-soname,PluginWar.so Cell.cpp Sprite.cpp CellW.cpp SpriteW.cpp PluginWar.cpp Grid.cpp PluginService.cpp PluginManager.cpp -lc -o ./plugins/PluginWar.so
+
+PluginLife.so:Cell.cpp Sprite.cpp CellLife.cpp SpriteLife.cpp PluginLife.cpp Grid.cpp PluginService.cpp PluginManager.cpp PluginLife.hpp PluginInterface.hpp
+	g++ -shared -std=c++11 -g -rdynamic -fPIC -Wl,-soname,PluginLife.so Cell.cpp Sprite.cpp CellLife.cpp SpriteLife.cpp PluginLife.cpp Grid.cpp PluginService.cpp PluginManager.cpp -lc -o ./plugins/PluginLife.so
 
 
 gameOfLife: PluginService.o life.o dialogs.o Grid.o Cell.o PluginManager.o Sprite.o 
@@ -32,6 +35,8 @@ CellB.o: CellB.cpp CellB.hpp Cell.hpp
 
 CellW.o: CellW.cpp CellW.hpp Cell.hpp
 
+CellLife.o: CellLife.cpp CellLife.hpp Cell.hpp
+
 PluginManager.o: PluginManager.cpp PluginInterface.hpp
 
 PluginService.o: PluginService.cpp PluginInterface.hpp
@@ -40,9 +45,11 @@ PluginBase.o: PluginBase.cpp PluginInterface.hpp
 
 PluginWar.o: PluginWar.cpp PluginInterface.hpp
 
-SpriteB.o: SpriteB.cpp SpriteB.hpp
+SpriteB.o: SpriteB.cpp SpriteB.hpp Sprite.hpp
 
-SpriteW.o: SpriteW.cpp SpriteW.hpp
+SpriteW.o: SpriteW.cpp SpriteW.hpp Sprite.hpp
+
+SpriteLife.o: SpriteLife.cpp SpriteLife.hpp Sprite.hpp
 
 PluginInterface.hpp:
 	@touch $@
