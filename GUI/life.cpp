@@ -50,6 +50,7 @@ enum
     // game menu
     ID_START,
     ID_STEP,
+    ID_STEPS,
     ID_TOPSPEED,
 
     // speed selection slider
@@ -68,6 +69,7 @@ wxBEGIN_EVENT_TABLE(LifeFrame, wxFrame)
     EVT_MENU            (ID_INFO,      LifeFrame::OnMenu)
     EVT_MENU            (ID_START,     LifeFrame::OnMenu)
     EVT_MENU            (ID_STEP,      LifeFrame::OnMenu)
+    EVT_MENU            (ID_STEPS,      LifeFrame::OnMenu)
     EVT_MENU            (wxID_STOP,    LifeFrame::OnMenu)
     EVT_MENU            (ID_TOPSPEED,  LifeFrame::OnMenu)
     EVT_COMMAND_SCROLL  (ID_SLIDER,    LifeFrame::OnSlider)
@@ -142,6 +144,7 @@ LifeFrame::LifeFrame() :
 
     menuGame->Append(ID_START, _("&Start\tAlt-S"), _("Start"));
     menuGame->Append(ID_STEP, _("&Next\tAlt-N"), _("Single step"));
+    menuGame->Append(ID_STEPS, _("&JumpTo"), _("Multiple steps"));
     menuGame->Append(wxID_STOP, wxEmptyString, _("Stop"));
     menuGame->Enable(wxID_STOP, false);
     menuGame->AppendSeparator();
@@ -315,6 +318,7 @@ void LifeFrame::OnMenu(wxCommandEvent& event)
         }
         case ID_START   : OnStart(); break;
         case ID_STEP    : OnStep(); break;
+        case ID_STEPS   : OnSteps(); break;
         case wxID_STOP  : OnStop(); break;
         case ID_TOPSPEED:
         {
@@ -434,7 +438,29 @@ void LifeFrame::OnStep()
     UpdateInfoText();
 
 
-   // OnStop();
+    OnStop();
+}
+
+
+void LifeFrame::OnSteps()
+{
+     // stop if it was running
+    OnStop();
+
+    // dialog box
+    OnStepsDialog dialog(this);
+
+    if (dialog.ShowModal() == wxID_OK)
+    {
+            for (int i = 0; i < dialog.GetNbSteps(); i++) {
+                drawPane->pluginManager->getNextGen(drawPane->grid);
+                m_tics++;
+            }
+
+            drawPane->paintNow();
+            UpdateInfoText();
+    }
+
 }
 
  Grid* BasicDrawPane::getGrid(){

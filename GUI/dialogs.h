@@ -37,7 +37,10 @@ public:
     * \param wxCommandEvent : event, the event for the second plugin button.
     */
     void OnChoix2(wxCommandEvent &event);
-
+    /*!
+    * \name UpdateInfoTextDialogStep();
+    * \brief Update the text for the nbSteps.
+    */
     void UpdateInfoTextDialog();
     /*!
     * \name OnSliderDialog1
@@ -98,8 +101,6 @@ private:
     long        pourcentage;
     int         m_value;
     std::string pluginPath;
-    wxListBox  *m_list;
-    wxTextCtrl *m_text;
 
 };
 
@@ -119,6 +120,49 @@ public:
     * \param wxWindow* : parent, The parent windows for the LifeAboutDialog
     */
     LifeAboutDialog(wxWindow *parent);
+};
+
+// --------------------------------------------------------------------------
+// OnStepsDialog
+// --------------------------------------------------------------------------
+/*!
+ *\class OnStepsDialog
+ *\brief The dialog box used for the JumpTo Menu
+ */
+class OnStepsDialog : public wxDialog
+{
+public:
+     /*!
+    * \name OnStepsDialog
+    * \brief The constructor of OnStepsDialog.
+    * \param wxWindow* : parent, The parent windows for the OnStepsDialog
+    */
+    OnStepsDialog(wxWindow *parent);
+
+   /*!
+    * \name UpdateInfoTextDialogStep();
+    * \brief Update the text for the nbSteps.
+    */
+    void UpdateInfoTextDialogStep();
+    /*!
+    * \name OnSliderDialogStep
+    * \brief What's going on when the slider for nbSteps is used.
+    * \param wxScrollEvent : event, the event for slider.
+    */
+    void OnSliderDialogStep(wxScrollEvent&  event);
+    /*!
+    * \name GetNbSteps
+    * \brief Getter for nbSteps.
+    * \return int : nbSteps.
+    */
+    int GetNbSteps();
+
+private:
+     DECLARE_EVENT_TABLE();
+       int nbSteps; 
+       wxStaticText *text_generations;
+       wxSlider    *slider1;
+
 };
 
 #endif  // DIALOGS_H_

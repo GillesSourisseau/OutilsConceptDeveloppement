@@ -148,6 +148,11 @@ private:
     */
     void OnStep();
     /*!
+    * \name OnSteps
+    * \brief Do multiple Generation of population.
+    */
+    void OnSteps();
+    /*!
     * \name OnStart
     * \brief Start the game of life with the Timer.
     */

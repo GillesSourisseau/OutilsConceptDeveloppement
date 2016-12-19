@@ -37,7 +37,8 @@ enum
     ID_CHOIX2,
     ID_SLIDERDIALOG1,
     ID_SLIDERDIALOG2,
-    ID_SLIDERDIALOG3
+    ID_SLIDERDIALOG3,
+    ID_SLIDERDIALOGSTEP
 
 
 };
@@ -55,6 +56,10 @@ wxBEGIN_EVENT_TABLE(NewGameDialog, wxDialog)
     EVT_COMMAND_SCROLL  (ID_SLIDERDIALOG2,    NewGameDialog::OnSliderDialog2)
     EVT_COMMAND_SCROLL  (ID_SLIDERDIALOG3,    NewGameDialog::OnSliderDialog3)
 wxEND_EVENT_TABLE()
+
+BEGIN_EVENT_TABLE(OnStepsDialog, wxDialog)
+    EVT_COMMAND_SCROLL  (ID_SLIDERDIALOGSTEP,    OnStepsDialog::OnSliderDialogStep)
+END_EVENT_TABLE()
 
 
 
@@ -87,7 +92,6 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
 
   wxRadioButton *rb2 = new wxRadioButton(panel, ID_CHOIX2, 
       wxT("PluginLife"), wxPoint(15, 80));
-
 
 
   wxSizer *sizerBtns = CreateButtonSizer(wxOK|wxCANCEL);
@@ -153,7 +157,6 @@ NewGameDialog::~NewGameDialog()
 void NewGameDialog::UpdateInfoTextDialog()
 {
     wxString msg;
-    /// TO DO
     msg.Printf(_(" TailleX: %lu  TailleY: %lu Pourcentage de vivants: %lu"),
             tailleX,
             tailleY,
@@ -184,16 +187,14 @@ void NewGameDialog::OnSliderDialog3(wxScrollEvent& event)
 
 void NewGameDialog::OnChoix1( wxCommandEvent& event )
 {
-	pluginPath = "./plugins/PluginWar.so";
+  pluginPath = "./plugins/PluginWar.so";
     wxLogMessage("Des geysers sont apparus ! Fuyez !!");
 }
 
 void NewGameDialog::OnChoix2( wxCommandEvent& event )
 {
-
     pluginPath = "./plugins/PluginLife.so";
-    wxLogMessage("Il est joli");
-
+    wxLogMessage("Compatibilite entre deux entites.");
 }
 
 long NewGameDialog::GetTailleX()
@@ -213,7 +214,7 @@ long NewGameDialog::GetPourcentage()
 
 std::string NewGameDialog::getPluginPath()
 {
-	return pluginPath;
+  return pluginPath;
 }
 // --------------------------------------------------------------------------
 // LifeAboutDialog
@@ -252,4 +253,78 @@ Portions of the code are based in demos of life in wxWidgets.")),
     Centre(wxBOTH | wxCENTRE_ON_SCREEN);
 }
 
+// --------------------------------------------------------------------------
+// OnStepsDialog
+// --------------------------------------------------------------------------
 
+OnStepsDialog::OnStepsDialog(wxWindow *parent)
+                 : wxDialog(parent, wxID_ANY, _("JumpTo"),
+                            wxDefaultPosition, wxSize(270,170))
+{
+
+    wxPanel *panel = new wxPanel(this, -1);
+  
+
+  wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
+  wxBoxSizer *hbox = new wxBoxSizer(wxHORIZONTAL);
+
+  wxStaticBox *st = new wxStaticBox(panel, -1, wxT("Choix du nombre de générations"), 
+      wxPoint(5, 5), wxSize(260, 100));
+
+  wxSizer *sizerBtns = CreateButtonSizer(wxOK|wxCANCEL);
+    if ( sizerBtns )
+    {
+        hbox->Add(sizerBtns, wxSizerFlags().Expand().Border());
+   }
+
+
+
+
+    nbSteps = 50;
+
+    text_generations = new wxStaticText(panel, wxID_ANY,
+         wxEmptyString,
+        wxPoint(15,50),
+        wxSize(250,200),
+    wxALIGN_CENTER | wxST_NO_AUTORESIZE);
+
+    UpdateInfoTextDialogStep();
+
+
+    slider1 = new wxSlider(panel, ID_SLIDERDIALOGSTEP,
+        50, 1, 100,
+        wxPoint(80,30),
+        wxSize(100, wxDefaultCoord),
+        wxSL_HORIZONTAL | wxSL_AUTOTICKS);
+
+
+  vbox->Add(panel, 1);
+  vbox->Add(hbox, 0, wxALIGN_CENTER | wxTOP | wxBOTTOM, 10);
+
+
+
+  SetSizer(vbox);
+
+  Centre();
+
+}
+
+void OnStepsDialog::UpdateInfoTextDialogStep()
+{
+    wxString msg;
+    msg.Printf(_(" Nombre de generations : %i "),
+            nbSteps);
+    text_generations->SetLabel(msg);
+}
+
+void OnStepsDialog::OnSliderDialogStep(wxScrollEvent& event)
+{
+    nbSteps = event.GetPosition();
+
+   UpdateInfoTextDialogStep();
+}
+
+int OnStepsDialog::GetNbSteps()
+{
+    return nbSteps;
+}
