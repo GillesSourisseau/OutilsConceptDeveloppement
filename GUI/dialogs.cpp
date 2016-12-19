@@ -23,6 +23,8 @@
 #include "wx/wx.h"
 #endif
 
+#include "dialogs.h"
+
 #include "wx/statline.h"
 #include "wx/minifram.h"
 #include "wx/settings.h"
@@ -30,7 +32,6 @@
 // #include "dialogs.h"
 //#include "life.h"
 //#include "game.h"
-
 
 // --------------------------------------------------------------------------
 // resources

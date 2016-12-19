@@ -69,7 +69,4 @@ public:
     LifeAboutDialog(wxWindow *parent);
 };
 
-
 #endif  // _LIFE_DIALOGS_H_
-
-#include "dialogs.cpp"
