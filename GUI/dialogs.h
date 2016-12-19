@@ -37,12 +37,6 @@ public:
     * \param wxCommandEvent : event, the event for the second plugin button.
     */
     void OnChoix2(wxCommandEvent &event);
-    /*!
-    * \name OnChoix3
-    * \brief What to do when the third plugin is choosen.
-    * \param wxCommandEvent : event, the event for the third plugin button.
-    */
-    void OnChoix3(wxCommandEvent &event);
 
     void UpdateInfoTextDialog();
     /*!
