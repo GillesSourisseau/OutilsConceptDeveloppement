@@ -16,6 +16,7 @@
 
 #include "../src/PluginManager.hpp"
 #include "../src/PluginService.hpp"
+#include "../src/Sprite.hpp"
 
 
 // --------------------------------------------------------------------------
@@ -44,6 +45,7 @@ public:
 
     PluginManager *pluginManager;
     Grid			*grid;
+    Sprite          *sprite;
 
 
  
@@ -54,7 +56,10 @@ public:
 // --------------------------------------------------------------------------
 // LifeFrame
 // --------------------------------------------------------------------------
-
+/*!
+ *\class LifeFrame
+ *\brief The principal window for the program.
+ */
 class LifeFrame : public wxFrame
 {
 public:
@@ -63,6 +68,10 @@ public:
     virtual ~LifeFrame();
 
     // member functions
+    /*!
+    * \name UpdateInfoText
+    * \brief 
+    */
     void UpdateInfoText();
     void UpdateUI();
     

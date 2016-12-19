@@ -123,7 +123,6 @@ bool LifeApp::OnInit()
 // LifeFrame
 // --------------------------------------------------------------------------
 
-// frame constructor
 LifeFrame::LifeFrame() :
   wxFrame( (wxFrame *) NULL, wxID_ANY, _("Life!"), wxPoint(50,50), wxSize(800, 600) )/*,
   m_navigator(NULL)*/
@@ -207,8 +206,15 @@ LifeFrame::LifeFrame() :
     wxPanel *panel2 = new wxPanel(this, wxID_ANY);
 
     drawPane = new BasicDrawPane( panel1);
+
+
     drawPane->pluginManager = new PluginManager();
-    drawPane->grid = new Grid(20,20,10);
+    drawPane->sprite = drawPane->pluginManager->getSpriteFromPlugin();
+    std::vector<int> vec1;
+    vec1.push_back(0);
+    vec1.push_back(1);
+    drawPane->grid = new Grid(20,20,10,vec1);
+
     nbPop = 40;
     drawPane->nbPop = 40;
     drawPane->cellsize = 6; 
@@ -363,7 +369,12 @@ void LifeFrame::OnNewGame(wxCommandEvent& WXUNUSED(event)){
         PluginService::setPath(dialog.getPluginPath());
 
        	delete(drawPane->grid); 
-        drawPane->grid = new Grid(drawPane->m_tailleX,drawPane->m_tailleY,dialog.GetPourcentage());
+       	drawPane->sprite = drawPane->pluginManager->getSpriteFromPlugin();
+       	std::vector<int> vec1;
+    vec1.push_back(0);
+    vec1.push_back(1);
+        drawPane->grid = new Grid(drawPane->m_tailleX,drawPane->m_tailleY,dialog.GetPourcentage(),vec1);
+
 
         drawPane->paintNow();
         nbPop = drawPane->nbPop;
@@ -508,6 +519,7 @@ void BasicDrawPane::render(wxDC&  dc)
      m_tailleY = grid->sizeColumns();
 
      int pion;
+     std::string color;
 
      if (m_tailleX <= 20 && m_tailleY <= 20){
 
@@ -548,42 +560,65 @@ void BasicDrawPane::render(wxDC&  dc)
 
 
         	pion = grid->getCellAtIndex(k,j)->getPion();
+        	color = sprite->getImage(pion);
 
-        	switch(pion){
+        	if ( color == "white" ){
+        				 dc.SetBrush(*wxWHITE_BRUSH);
 
-        		case 0: 
+        	} else if ( color == "black" ){
+        		 dc.SetBrush(*wxBLACK_BRUSH);
+        	} else if ( color == "blue" ){
+        				 dc.SetBrush(*wxBLUE_BRUSH);
+
+        	} else if ( color == "red" ){
+        				 dc.SetBrush(*wxRED_BRUSH);
+
+
+        	} else if ( color == "green" ){
+        				 dc.SetBrush(*wxGREEN_BRUSH);
+
+        	}else if ( color == "yellow" ) {
+        				 dc.SetBrush(*wxYELLOW_BRUSH);
+
+        	} else {
+        		 dc.SetBrush(*wxBLACK_BRUSH);
+        	}
+
+        	/*switch(color){
+
+        		case "white": 
         				 dc.SetBrush(*wxWHITE_BRUSH);
         		break;
 
-        		case 1:
+        		case "black":
         				nbPop++;
         				 dc.SetBrush(*wxBLACK_BRUSH);
         		break;
 
-        		case 2:
+        		case "blue":
         				 dc.SetBrush(*wxBLUE_BRUSH);
         		break;
 
 
-        		case 3:
+        		case "red":
         				 dc.SetBrush(*wxRED_BRUSH);
         		break;
 
 
-        		case 4:
+        		case "green":
         				 dc.SetBrush(*wxGREEN_BRUSH);
         		break;
 
 
 
-        		case 5:
+        		case "yellow":
         				 dc.SetBrush(*wxYELLOW_BRUSH);
         		break; 
         				 
         		default:
         				dc.SetBrush(*wxBLACK_BRUSH);
 
-        	}
+        	}*/
 
 
             dc.DrawRectangle(k*scale, j*scale, cellsize, cellsize);
