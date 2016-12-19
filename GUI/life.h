@@ -38,6 +38,7 @@ public:
     int cellsize;
     long m_tailleX;
     long m_tailleY;
+    int pourcentage;
 
     PluginManager *pluginManager;
     Grid			*grid;
@@ -81,12 +82,6 @@ private:
     void OnNewGame(wxCommandEvent& WXUNUSED(event));
 
 
-    // event handler helpers
-   /* void OnStart();
-    void OnStop();
-    void OnStep();*/
-
-   // Life           *m_life;
 
     wxStaticText   *m_text;
     wxTimer        *m_timer;

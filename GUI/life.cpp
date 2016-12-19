@@ -246,9 +246,9 @@ LifeFrame::LifeFrame() :
     drawPane->m_tailleX = 100;
     drawPane->m_tailleY = 100;
 
+    
 
-
- // info panel
+ // info panel2
     m_text = new wxStaticText(panel2, wxID_ANY,
         wxEmptyString,
         wxDefaultPosition,
@@ -322,7 +322,7 @@ void LifeFrame::UpdateUI()
     GetMenuBar()->Enable(ID_TOPSPEED, !m_topspeed);
 
 }
-
+	
 // Event handlers -----------------------------------------------------------
 
 // OnMenu handles all events which don't have their own event handler
@@ -383,8 +383,9 @@ void LifeFrame::OnNewGame(wxCommandEvent& WXUNUSED(event)){
         drawPane->m_tailleX = dialog.GetTailleX();
         drawPane->m_tailleY = dialog.GetTailleY();
 
+
        	delete(drawPane->grid); 
-        drawPane->grid = new Grid(drawPane->m_tailleX,drawPane->m_tailleY,30);
+        drawPane->grid = new Grid(drawPane->m_tailleX,drawPane->m_tailleY,dialog.GetPourcentage());
 
         drawPane->paintNow();
         m_tics = 0;
@@ -558,8 +559,8 @@ void BasicDrawPane::render(wxDC&  dc)
     }
 
 
-
-
+    
+    
 
     int scale = cellsize;
     for (int k = 0; k < m_tailleX; k++){

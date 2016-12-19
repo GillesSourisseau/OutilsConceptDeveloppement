@@ -1,4 +1,6 @@
 *.o
+src/plugins/PluginBase.so
 gameOfLife
 core
-
+*.hpp~
+*.cpp~

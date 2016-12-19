@@ -23,6 +23,8 @@
 #include "wx/wx.h"
 #endif
 
+#include "dialogs.h"
+
 #include "wx/statline.h"
 #include "wx/minifram.h"
 #include "wx/settings.h"
@@ -30,7 +32,6 @@
 // #include "dialogs.h"
 //#include "life.h"
 //#include "game.h"
-
 
 // --------------------------------------------------------------------------
 // resources
@@ -53,7 +54,8 @@ enum
     ID_CHOIX2,
     ID_CHOIX3,
     ID_SLIDERDIALOG1,
-    ID_SLIDERDIALOG2
+    ID_SLIDERDIALOG2,
+    ID_SLIDERDIALOG3
 
 
 };
@@ -70,6 +72,7 @@ wxBEGIN_EVENT_TABLE(NewGameDialog, wxDialog)
     EVT_RADIOBUTTON (ID_CHOIX3, NewGameDialog::OnChoix3)
     EVT_COMMAND_SCROLL  (ID_SLIDERDIALOG1,    NewGameDialog::OnSliderDialog1)
     EVT_COMMAND_SCROLL  (ID_SLIDERDIALOG2,    NewGameDialog::OnSliderDialog2)
+    EVT_COMMAND_SCROLL  (ID_SLIDERDIALOG3,    NewGameDialog::OnSliderDialog3)
 wxEND_EVENT_TABLE()
 
 
@@ -84,7 +87,7 @@ wxEND_EVENT_TABLE()
 
 NewGameDialog::NewGameDialog(wxWindow *parent)
                  : wxDialog(parent, wxID_ANY, _("New Game"),
-                            wxDefaultPosition, wxSize(250,300))
+                            wxDefaultPosition, wxSize(270,330))
 {
 
     wxPanel *panel = new wxPanel(this, -1);
@@ -93,7 +96,7 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
   wxBoxSizer *hbox = new wxBoxSizer(wxHORIZONTAL);
 
   wxStaticBox *st = new wxStaticBox(panel, -1, wxT("Plugins"), 
-      wxPoint(5, 5), wxSize(240, 150));
+      wxPoint(5, 5), wxSize(260, 150));
 
     wxRadioButton *rb0 = new wxRadioButton(panel, -1, 
       wxT("Jeu de base"), wxPoint(15, 30), wxDefaultSize, wxRB_GROUP);
@@ -113,16 +116,17 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
 
 
    wxStaticBox *st1 = new wxStaticBox(panel, -1, wxT("Taille"), 
-      wxPoint(5, 160), wxSize(240, 75));
+      wxPoint(5, 160), wxSize(260, 95));
 
    tailleX = 50;
    tailleY = 50;
+   pourcentage = 50;
 
 
     text_taille = new wxStaticText(panel, wxID_ANY,
         wxEmptyString,
         wxPoint(125,185),
-        wxSize(100,100),
+        wxSize(125,200),
         wxALIGN_CENTER | wxST_NO_AUTORESIZE);
 
     UpdateInfoTextDialog();
@@ -137,6 +141,12 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
     slider2 = new wxSlider(panel, ID_SLIDERDIALOG2,
         50, 20, 100,
         wxPoint(15,205),
+        wxSize(100, wxDefaultCoord),
+        wxSL_HORIZONTAL | wxSL_AUTOTICKS);
+
+    slider3 = new wxSlider(panel, ID_SLIDERDIALOG3,
+        50, 1, 100,
+        wxPoint(15,225),
         wxSize(100, wxDefaultCoord),
         wxSL_HORIZONTAL | wxSL_AUTOTICKS);
 
@@ -173,27 +183,20 @@ NewGameDialog::~NewGameDialog()
 }
 
 
-
 void NewGameDialog::UpdateInfoTextDialog()
 {
     wxString msg;
-
-    msg.Printf(_(" TailleX: %lu  TailleY: %lu "),
+    /// TO DO
+    msg.Printf(_(" TailleX: %lu  TailleY: %lu Pourcentage de vivants: %lu"),
             tailleX,
-            tailleY);
+            tailleY,
+            pourcentage);
     text_taille->SetLabel(msg);
-
 }
 
 void NewGameDialog::OnSliderDialog1(wxScrollEvent& event)
 {
     tailleX = event.GetPosition();
-
-    // if (m_running)
-    // {
-    //     OnStop();
-    //     OnStart();
-    // }
 
    UpdateInfoTextDialog();
 }
@@ -202,15 +205,15 @@ void NewGameDialog::OnSliderDialog2(wxScrollEvent& event)
 {
     tailleY = event.GetPosition();
 
-    // if (m_running)
-    // {
-    //     OnStop();
-    //     OnStart();
-    // }
-
     UpdateInfoTextDialog();
 }
 
+void NewGameDialog::OnSliderDialog3(wxScrollEvent& event)
+{
+    pourcentage = event.GetPosition();
+
+    UpdateInfoTextDialog();
+}
 
 void NewGameDialog::OnChoix1( wxCommandEvent& event )
 {
@@ -235,6 +238,11 @@ long NewGameDialog::GetTailleX()
 long NewGameDialog::GetTailleY()
 {
     return tailleY;
+}
+
+long NewGameDialog::GetPourcentage()
+{
+    return pourcentage;
 }
 // --------------------------------------------------------------------------
 // LifeAboutDialog
