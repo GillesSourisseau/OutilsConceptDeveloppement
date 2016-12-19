@@ -192,15 +192,6 @@ LifeFrame::LifeFrame() :
     m_interval = 500;
     m_tics     = 0;
 
-    // We use two different panels to reduce flicker in wxGTK, because
-    // some widgets (like wxStaticText) don't have their own X11 window,
-    // and thus updating the text would result in a refresh of the canvas
-    // if they belong to the same parent.
-
-   
-
-
-
 
     wxPanel *panel1 = new wxPanel(this, wxID_ANY, wxPoint(1, 1), wxSize(800, 600));
     wxPanel *panel2 = new wxPanel(this, wxID_ANY);
@@ -302,7 +293,7 @@ void LifeFrame::UpdateUI()
     GetMenuBar()->Enable(ID_TOPSPEED, !m_topspeed);
 
 }
-	
+    
 // Event handlers -----------------------------------------------------------
 
 // OnMenu handles all events which don't have their own event handler
@@ -367,9 +358,9 @@ void LifeFrame::OnNewGame(wxCommandEvent& WXUNUSED(event)){
         drawPane->pluginManager->setPluginPath(dialog.getPluginPath());
         PluginService::setPath(dialog.getPluginPath());
 
-       	delete(drawPane->grid); 
-       	drawPane->sprite = drawPane->pluginManager->getSpriteFromPlugin();
-       	std::vector<int> vec1;
+        delete(drawPane->grid); 
+        drawPane->sprite = drawPane->pluginManager->getSpriteFromPlugin();
+        std::vector<int> vec1;
         vec1 = drawPane->sprite->getKeys();
         drawPane->grid = new Grid(drawPane->m_tailleX,drawPane->m_tailleY,dialog.GetPourcentage(),vec1);
 
@@ -408,7 +399,7 @@ void LifeFrame::OnClose(wxCloseEvent& WXUNUSED(event))
     // the frame won't be actually destroyed until there are no
     // more pending events, and this in turn won't ever happen
     // if the timer is running faster than the window can redraw.
-   // OnStop();
+   OnStop();
     Destroy();
 }
 
@@ -435,34 +426,26 @@ void LifeFrame::OnStop()
 
 void LifeFrame::OnStep()
 {
-	drawPane->pluginManager->getNextGen(drawPane->grid);
+    drawPane->pluginManager->getNextGen(drawPane->grid);
 
-	m_tics++;
+    m_tics++;
 
-	drawPane->paintNow();
-	UpdateInfoText();
+    drawPane->paintNow();
+    UpdateInfoText();
 
 
-
-    // if (m_life->NextTic())
-    // {
-    //     m_tics++;
-    //     m_canvas->Refresh();
-    //     UpdateInfoText();
-    // }
-    // else
-    //     OnStop();
+   // OnStop();
 }
 
  Grid* BasicDrawPane::getGrid(){
 
- 	return grid;
+    return grid;
  }
 
 
 PluginManager* BasicDrawPane::getPluginManager(){
 
-	return pluginManager;
+    return pluginManager;
 }
 
 BasicDrawPane::BasicDrawPane(wxWindow* parent) :
@@ -509,7 +492,7 @@ void BasicDrawPane::paintNow()
  */
 void BasicDrawPane::render(wxDC&  dc)
 {
-	nbPop = 0;
+    nbPop = 0;
      dc.SetBrush(*wxWHITE_BRUSH); // blue filling
      dc.SetPen(*wxBLACK_PEN);
 
@@ -557,66 +540,30 @@ void BasicDrawPane::render(wxDC&  dc)
         for (int j= 0; j < m_tailleY; j++){
 
 
-        	pion = grid->getCellAtIndex(k,j)->getPion();
-        	color = sprite->getImage(pion);
+            pion = grid->getCellAtIndex(k,j)->getPion();
+            color = sprite->getImage(pion);
 
-        	if ( color == "white" ){
-        				 dc.SetBrush(*wxWHITE_BRUSH);
+            if ( color == "white" ){
+                         dc.SetBrush(*wxWHITE_BRUSH);
 
-        	} else if ( color == "black" ){
-        		 dc.SetBrush(*wxBLACK_BRUSH);
-        	} else if ( color == "blue" ){
-        				 dc.SetBrush(*wxBLUE_BRUSH);
+            } else if ( color == "black" ){
+                 dc.SetBrush(*wxBLACK_BRUSH);
+            } else if ( color == "blue" ){
+                         dc.SetBrush(*wxBLUE_BRUSH);
 
-        	} else if ( color == "red" ){
-        				 dc.SetBrush(*wxRED_BRUSH);
-
-
-        	} else if ( color == "green" ){
-        				 dc.SetBrush(*wxGREEN_BRUSH);
-
-        	}else if ( color == "yellow" ) {
-        				 dc.SetBrush(*wxYELLOW_BRUSH);
-
-        	} else {
-        		 dc.SetBrush(*wxBLACK_BRUSH);
-        	}
-
-        	/*switch(color){
-
-        		case "white": 
-        				 dc.SetBrush(*wxWHITE_BRUSH);
-        		break;
-
-        		case "black":
-        				nbPop++;
-        				 dc.SetBrush(*wxBLACK_BRUSH);
-        		break;
-
-        		case "blue":
-        				 dc.SetBrush(*wxBLUE_BRUSH);
-        		break;
+            } else if ( color == "red" ){
+                         dc.SetBrush(*wxRED_BRUSH);
 
 
-        		case "red":
-        				 dc.SetBrush(*wxRED_BRUSH);
-        		break;
+            } else if ( color == "green" ){
+                         dc.SetBrush(*wxGREEN_BRUSH);
 
+            }else if ( color == "yellow" ) {
+                         dc.SetBrush(*wxYELLOW_BRUSH);
 
-        		case "green":
-        				 dc.SetBrush(*wxGREEN_BRUSH);
-        		break;
-
-
-
-        		case "yellow":
-        				 dc.SetBrush(*wxYELLOW_BRUSH);
-        		break; 
-        				 
-        		default:
-        				dc.SetBrush(*wxBLACK_BRUSH);
-
-        	}*/
+            } else {
+                 dc.SetBrush(*wxBLACK_BRUSH);
+            }
 
 
             dc.DrawRectangle(k*scale, j*scale, cellsize, cellsize);
