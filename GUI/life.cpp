@@ -23,7 +23,6 @@
 
     // bitmap buttons for the toolbar
     #include "bitmaps/reset.xpm"
-    #include "bitmaps/open.xpm"
     #include "bitmaps/play.xpm"
     #include "bitmaps/stop.xpm"
     #include "bitmaps/info.xpm"
