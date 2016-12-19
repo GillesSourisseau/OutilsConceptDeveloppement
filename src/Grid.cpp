@@ -68,6 +68,7 @@ void Grid::randomInitialise(vector<int> pions){
     pairs f = *it;
     Cell* c = getCellAtIndex(f.first,f.second);
     int randint = rand() % pions.size();
+    cout<<"pion = "<<"randint"<<endl;
     c->setPion(pions[randint]);
   }
 }

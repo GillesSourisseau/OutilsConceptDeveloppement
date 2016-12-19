@@ -1,4 +1,4 @@
-all:gameOfLife PluginBase.so
+all:gameOfLife PluginBase.so PluginWar
 
 CXXFLAGS= -std=c++11 -g
 

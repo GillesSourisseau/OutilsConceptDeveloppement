@@ -7,11 +7,11 @@
 using namespace std;
 
 extern "C" {
-	extern Plugin* registerFactory(){return new PluginWar();}
+  extern Plugin* registerFactory(){return new PluginWar();}
 }
 
 PluginWar::PluginWar(){
-	cout<<"inside PluginWar method"<<endl;
+  cout<<"inside PluginWar method"<<endl;
 }
 
 PluginWar::~PluginWar(){
