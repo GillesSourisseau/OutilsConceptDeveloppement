@@ -1,13 +1,3 @@
-/////////////////////////////////////////////////////////////////////////////
-// Name:        life/dialogs.cpp
-// Purpose:     Life! dialogs
-// Author:      Guillermo Rodriguez Garcia, <guille@iies.es>
-// Modified by:
-// Created:     Jan/2000
-// Copyright:   (c) 2000, Guillermo Rodriguez Garcia
-// Licence:     wxWindows licence
-/////////////////////////////////////////////////////////////////////////////
-
 // ==========================================================================
 // headers, declarations, constants
 // ==========================================================================
@@ -29,18 +19,11 @@
 #include "wx/minifram.h"
 #include "wx/settings.h"
 
-// #include "dialogs.h"
-//#include "life.h"
-//#include "game.h"
-
 // --------------------------------------------------------------------------
 // resources
 // --------------------------------------------------------------------------
 
 #include "bitmaps/life.xpm"
-
-// sample configurations
-// #include "samples.inc"
 
 // --------------------------------------------------------------------------
 // constants
@@ -152,12 +135,6 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
         wxSL_HORIZONTAL | wxSL_AUTOTICKS);
 
 
-
-
-
-  // hbox->Add(okButton, 1);
-  // hbox->Add(closeButton, 1, wxLEFT, 5);
-
   vbox->Add(panel, 1);
   vbox->Add(hbox, 0, wxALIGN_CENTER | wxTOP | wxBOTTOM, 10);
 
@@ -166,15 +143,6 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
   SetSizer(vbox);
 
   Centre();
-  /*ShowModal();
-
-  Destroy(); */
-
-
-
-
-
-
 
 }
 
@@ -269,16 +237,11 @@ LifeAboutDialog::LifeAboutDialog(wxWindow *parent)
     sizer->Add( new wxStaticLine(this, wxID_ANY), 0, wxGROW | wxLEFT | wxRIGHT, 5 );
 #endif // wxUSE_STATLINE
     sizer->Add( CreateTextSizer(_("Game of Life version 1.0 for Concept et Outils de developpements\n\n\
-Laurent - Killian - Aurelien - Theo - Gilles - Vincent - Andrei\n\n\
+Laurent - Killian - Aurelien - Theo - Gilles - Vincent - Andrei - Saad \n\n\
 Portions of the code are based in demos of life in wxWidgets.")),
                                   0, wxCENTRE | wxRIGHT|wxLEFT|wxTOP, 20 );
 
-//     sizer->Add( CreateTextSizer(_("Game of Life version 1.0 for Concept et Outils de developpement\n\n\
-// Laurent  Killian  Aurélien  Théo  Gilles  Vincent  Andrei\n\n\
-// <guille@iies.es>\n\n\
-// Portions of the code are based in demos of life in wxWidgets;\n\
-// XLife is (c) 1989 by Jon Bennett et al.")),
-//                                   0, wxCENTRE | wxRIGHT|wxLEFT|wxTOP, 20 );
+
     // buttons if any
     wxSizer *sizerBtns = CreateButtonSizer(wxOK);
     if ( sizerBtns )
