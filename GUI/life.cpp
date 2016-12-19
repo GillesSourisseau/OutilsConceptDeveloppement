@@ -211,8 +211,7 @@ LifeFrame::LifeFrame() :
     drawPane->pluginManager = new PluginManager();
     drawPane->sprite = drawPane->pluginManager->getSpriteFromPlugin();
     std::vector<int> vec1;
-    vec1.push_back(0);
-    vec1.push_back(1);
+    vec1 = drawPane->sprite->getKeys();
     drawPane->grid = new Grid(20,20,10,vec1);
 
     nbPop = 40;
@@ -371,8 +370,7 @@ void LifeFrame::OnNewGame(wxCommandEvent& WXUNUSED(event)){
        	delete(drawPane->grid); 
        	drawPane->sprite = drawPane->pluginManager->getSpriteFromPlugin();
        	std::vector<int> vec1;
-    vec1.push_back(0);
-    vec1.push_back(1);
+        vec1 = drawPane->sprite->getKeys();
         drawPane->grid = new Grid(drawPane->m_tailleX,drawPane->m_tailleY,dialog.GetPourcentage(),vec1);
 
 
