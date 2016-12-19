@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 /*!
  *\class Sprite
  *\name Sprite
@@ -28,6 +29,8 @@ public:
    *\return imageName
    */
   std::string getImage(int key);
+
+  std::vector<int> getKeys();
 };
 
 
