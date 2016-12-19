@@ -23,7 +23,7 @@ public:
    *\param[in] resineaux - percentage of initial alive cells
    *\warning resineaux should be a number between 1 and 100 
    */
-  Grid(int n, int m, int resineaux);
+  Grid(int n, int m, int resineaux,std::vector<int> pions);
 
   /*!
    *\brief Destructor of Grid instances
@@ -35,7 +35,7 @@ public:
    *\brief initialise the grid using the percentage of resineaux as percentage of alive cells in the grid placed at random valid locations
    *\param[in] pion - what state do we want to initialize the grid with
    */
-  void randomInitialise(int pion);
+  void randomInitialise(std::vector<int> pions);
 
   /*!
    *\name sizeRows

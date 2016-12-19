@@ -2,6 +2,7 @@
 #include "PluginService.hpp"
 #include "PluginManager.hpp"
 #include <iostream>
+#include <vector>
 #include <set>
 #include <map>
 #include <cstdlib>
@@ -9,7 +10,7 @@
 
 using namespace std;
 
-Grid::Grid(int n, int m, int resineaux) : n(n), m(m), resineaux(resineaux){
+Grid::Grid(int n, int m, int resineaux,vector<int> pions) : n(n), m(m), resineaux(resineaux){
   cout<<"inside grid constructor"<<endl;
   PluginManager* p = new PluginManager();
   p->setPluginPath(PluginService::getPath());
@@ -27,7 +28,7 @@ Grid::Grid(int n, int m, int resineaux) : n(n), m(m), resineaux(resineaux){
     }
   }
   cout<<"before randomInitialise; resineaux = "<<this->resineaux<<endl;
-  randomInitialise(1);
+  randomInitialise(pions);
 }
 
 Grid::~Grid(){
@@ -36,7 +37,7 @@ Grid::~Grid(){
 
 typedef pair<int,int> pairs;
 
-void Grid::randomInitialise(int pion){
+void Grid::randomInitialise(vector<int> pions){
   cout<<"inside random initialise"<<endl;
   double initsize = ((double)this->resineaux / 100)*(this->n * this->m);
   cout<<"number of cells to init : "<<initsize<<endl;
@@ -55,28 +56,19 @@ void Grid::randomInitialise(int pion){
 
     p.first = x;
     p.second = y; 
-    //pair<set<pairs>::iterator,bool> ret 
-    initSet.insert(p);
-    i++;
+    pair<set<pairs>::iterator,bool> ret = initSet.insert(p);
+    if(ret.second == true){
+      i++;
+    }
   } 
 
   set<pairs> :: iterator it;
 
   for(it = initSet.begin(); it != initSet.end(); it++){
     pairs f = *it;
-    std::cout << "COUCOU4" << std::endl;
     Cell* c = getCellAtIndex(f.first,f.second);
-    std::cout << f.first << std::endl;
-    std::cout << f.second << std::endl;
-    if(c != nullptr){
-    std::cout << "pion" << c->getPion() << std::endl;
-    std::cout << "sizeNeighbors" << c->getSizeNeighbors() << std::endl;
-    std::cout << "CoordX" << c->getCoordX() << std::endl;
-    std::cout << "CoordY" << c->getCoordY() << std::endl;
-    std::cout << "NrPions" << c->getNrPions() << std::endl;
-       c->setPion(pion);
-    }
-    std::cout << "COUCOU6" << std::endl;
+    int randint = rand() % pions.size();
+    c->setPion(pions[randint]);
   }
 }
 

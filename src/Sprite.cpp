@@ -1,9 +1,10 @@
 #include "Sprite.hpp"
+#include <iostream>
 #include <string>
-
+#include <map>
 using namespace std;
 
-Sprite::Sprite(string imageName0, string imageName1) : imageName0(imageName0),imageName1(imageName1){
+Sprite::Sprite(map<int,string> imageNames) : imageNames(imageNames){
 
 }
 
@@ -11,18 +12,15 @@ Sprite::~Sprite(){
 
 }
 
-string Sprite::getImage0(){
-    return this->imageName0;
+string Sprite::getImage(int key){
+  map<int,string>::iterator it;
+  it = imageNames.find(key);
+  if(it != imageNames.end()){
+    return it->second;
+  }else{
+    cout<<"key not found"<<endl;
+    return "default";
+  }
 }
 
-string Sprite::getImage1(){
-    return this->imageName1;
-}
 
-void Sprite::setImage0(string imageName){
-    this->imageName0 = imageName;
-}
-
-void Sprite::setImage1(string imageName){
-    this->imageName1 = imageName;
-}

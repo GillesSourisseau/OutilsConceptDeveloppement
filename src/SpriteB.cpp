@@ -2,8 +2,11 @@
 #include <string>
 using namespace std;
 
-SpriteB::SpriteB() : Sprite("red","blue"){
-
+SpriteB::SpriteB(){
+  map<int, string> m;
+  m.insert(0,"red");
+  m.insert(1,"blue");
+  this->imageNames = m;
 }
 
 SpriteB::~SpriteB(){
