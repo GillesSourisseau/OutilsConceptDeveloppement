@@ -11,7 +11,6 @@ extern "C" {
 }
 
 PluginBase::PluginBase(){
-  cout<<"inside PluginBase method"<<endl;
 }
 
 PluginBase::~PluginBase(){
@@ -19,7 +18,6 @@ PluginBase::~PluginBase(){
 }
 
 void PluginBase::nextGeneration(Grid& gr){
-  cout<<"inside plugin method nextgeneration() that outputs the next gen of the grid"<<endl;
   vector<int> temp;
   //init the temp vector with 0 state
   for(int ind=0;ind < gr.sizeRows() * gr.sizeColumns();ind++){
@@ -52,7 +50,6 @@ void PluginBase::nextGeneration(Grid& gr){
 
 
 Cell* PluginBase::getControllerCellType(int x, int y, int n, int m){
-  cout<<"inside plugin method returning a derived class Cell"<<endl;
   CellB* cb = new CellB(x,y);
   cb->findNeighbors(n,m);
   return cb;
@@ -60,7 +57,6 @@ Cell* PluginBase::getControllerCellType(int x, int y, int n, int m){
 
 
 void PluginBase::applyProba(Grid& oldGrid, Grid& newGrid){
-  cout<<"inside applyProba in the plugin"<<endl;
 }
 
 

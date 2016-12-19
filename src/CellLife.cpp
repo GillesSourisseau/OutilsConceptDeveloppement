@@ -6,15 +6,12 @@
 using namespace std;
 
 CellLife::CellLife(int x, int y): Cell(x,y,8,2){
-  cout<<"inside cellLife constructor"<<endl;
 }
 
 CellLife::~CellLife(){
-  cout<<"inside cellLife destructor"<<endl;
 }
 
 void CellLife::findNeighbors(int n,int m){
-  cout<<"inside findNeighbors method"<<endl;
   int dx=-1;
   int dy=-1;
   for(int i=0;i<this->getSizeNeighbors();i++){

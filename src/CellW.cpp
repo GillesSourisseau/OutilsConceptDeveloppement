@@ -6,15 +6,15 @@
 using namespace std;
 
 CellW::CellW(int x, int y): Cell(x,y,8,2){
-  cout<<"inside cellB constructor"<<endl;
+
 }
 
 CellW::~CellW(){
-  cout<<"inside cellB destructor"<<endl;
+
 }
 
 void CellW::findNeighbors(int n,int m){
-  cout<<"inside findNeighbors method"<<endl;
+
   int dx=-1;
   int dy=-1;
   for(int i=0;i<this->getSizeNeighbors();i++){

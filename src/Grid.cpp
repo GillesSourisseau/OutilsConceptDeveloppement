@@ -11,7 +11,6 @@
 using namespace std;
 
 Grid::Grid(int n, int m, int resineaux,vector<int> pions) : n(n), m(m), resineaux(resineaux){
-  cout<<"inside grid constructor"<<endl;
   PluginManager* p = new PluginManager();
   p->setPluginPath(PluginService::getPath());
   if(p==nullptr){
@@ -20,14 +19,11 @@ Grid::Grid(int n, int m, int resineaux,vector<int> pions) : n(n), m(m), resineau
   }
   int ind = 0;
   for(int i=0;i<n;i++){
-    cout<<"one step"<<endl;
     for(int j=0;j<m;j++){
       tab.push_back(p->getCellFromPlugin(i,j,n,m));
-      cout<<"case "<<i<<" "<<j<<" created in tab["<<ind<<"]"<<endl;
       ind++;
     }
   }
-  cout<<"before randomInitialise; resineaux = "<<this->resineaux<<endl;
   randomInitialise(pions);
 }
 
@@ -38,14 +34,11 @@ Grid::~Grid(){
 typedef pair<int,int> pairs;
 
 void Grid::randomInitialise(vector<int> pions){
-  cout<<"inside random initialise"<<endl;
   double initsize = ((double)this->resineaux / 100)*(this->n * this->m);
-  cout<<"number of cells to init : "<<initsize<<endl;
   int i=0;
   srand(time(0));
 
   int castedint = (int) initsize;
-  cout<<"CASTEDINT : "<<castedint<<endl;
     
   set<pairs> initSet;
   pairs p; 
@@ -68,7 +61,6 @@ void Grid::randomInitialise(vector<int> pions){
     pairs f = *it;
     Cell* c = getCellAtIndex(f.first,f.second);
     int randint = rand() % pions.size();
-    cout<<"pion = "<<"randint"<<endl;
     c->setPion(pions[randint]);
   }
 }

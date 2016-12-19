@@ -6,7 +6,7 @@ using namespace std;
 
 
 Cell::Cell(int x, int y, int sizeNeighbors, int nrPions) : coordx(x), coordy(y), sizeNeighbors(sizeNeighbors), nrPions(nrPions), pion(0){
-  cout<<"inside cell constructor"<<endl;
+
 }
 
 Cell::~Cell(){
@@ -51,7 +51,6 @@ void Cell::setNrPions(int nrPions){
 }
 
 void Cell::validateCoords(int* x, int* y,int n, int m){
-    std::cout << "VALIDATE COORDS ???????" << std::endl;
     if(*x<0 && *y<0){
         *x = n-1;
         *y = m-1;

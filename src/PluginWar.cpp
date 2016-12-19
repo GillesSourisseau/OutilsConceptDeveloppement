@@ -11,7 +11,6 @@ extern "C" {
 }
 
 PluginWar::PluginWar(){
-  cout<<"inside PluginWar method"<<endl;
 }
 
 PluginWar::~PluginWar(){
@@ -21,7 +20,7 @@ PluginWar::~PluginWar(){
 void PluginWar::nextGeneration(Grid& gr)
 {
 
-	cout<<"inside plugin method nextgeneration() OF PLUGINWAR that outputs the next gen of the grid"<<endl;
+        
 	vector<int> temp;
 	bool fought = false;
 	bool redMove = false;
@@ -82,7 +81,7 @@ void PluginWar::nextGeneration(Grid& gr)
 
 
 Cell* PluginWar::getControllerCellType(int x, int y, int n, int m){
-  cout<<"inside plugin method returning a derived class Cell"<<endl;
+
   CellW* cw = new CellW(x,y);
   cw->findNeighbors(n,m);
   return cw;
@@ -90,7 +89,7 @@ Cell* PluginWar::getControllerCellType(int x, int y, int n, int m){
 
 
 void PluginWar::applyProba(Grid& oldGrid, Grid& newGrid){
-  cout<<"inside applyProba in the plugin"<<endl;
+
 }
 
 

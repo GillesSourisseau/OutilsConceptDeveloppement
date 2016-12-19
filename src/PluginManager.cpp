@@ -20,21 +20,18 @@ vector<string> PluginManager::findPlugins(string directory){
 }
 
 void* PluginManager::loadPlugin(int method, void* params[]){
-  cout<<"inside loadPlugin method"<<endl;
   void* handle = dlopen(this->pathPlugin.c_str(),RTLD_NOW);
   if(!handle){
     cerr<<"handle error "<<dlerror()<<endl;
     exit(EXIT_FAILURE);
   }
   dlerror();
-  cout<<"before calling dlsym"<<endl;
   reg* regFactory = (reg*) dlsym(handle,"registerFactory");
   const char* dlsym_error = dlerror();
   if(dlsym_error){
     cerr<<"Can not load symbol registerFactory: "<<dlsym_error<<endl;
     exit(EXIT_FAILURE);
   }
-  cout<<"before retrieving the plugin impementation"<<endl;
   Plugin* p = nullptr;
   p = (*regFactory)();
   void* res=nullptr;
@@ -50,24 +47,18 @@ void* PluginManager::loadPlugin(int method, void* params[]){
 	exit(1);
       }
     }else if (method==2){
-      cout<<"now we are going to get the next state of the grid"<<endl;
       Grid* g = (Grid*) params[0];
       p->nextGeneration(*g);
-      cout<<"method nextGeneration ended"<<endl;
     }else if(method == 3){
-      cout<<"getting the sprite class from the plugin"<<endl;
       res = p->getControllerSprite();
       if(res == nullptr){
 	cout<<"sprite could not be created"<<endl;
 	exit(1);
       }
-      cout<<"sprite has been retrieved"<<endl;
     }else if(method == 4){
-      cout<<"applying probabilities on the grid"<<endl;
       Grid* og = (Grid*) params[0];
       Grid* ng = (Grid*) params[1];
       p->applyProba(*og,*ng);
-      cout<<"end applyproba method"<<endl;
     }
   }
   dlclose(handle);
@@ -106,7 +97,6 @@ void PluginManager::setPluginPath(string path){
 }
 
 PluginManager::PluginManager(){
-  cout<<"inside pluginManager constructor"<<endl;
   setPluginPath("./plugins/PluginBase.so");//init with default plugin
 
   cout<<"This is the plugins List"<<endl;

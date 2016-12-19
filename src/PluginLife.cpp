@@ -13,7 +13,6 @@ extern "C" {
 }
 
 PluginLife::PluginLife(){
-  cout<<"inside PluginLife method"<<endl;
 }
 
 PluginLife::~PluginLife(){
@@ -21,7 +20,6 @@ PluginLife::~PluginLife(){
 }
 
 void PluginLife::nextGeneration(Grid& gr){
-  cout<<"inside plugin method nextgeneration() that outputs the next gen of the grid"<<endl;
    vector<int> temp;
    vector<int> temp2;
    srand(time(0));
@@ -67,7 +65,6 @@ void PluginLife::nextGeneration(Grid& gr){
 
 
 Cell* PluginLife::getControllerCellType(int x, int y, int n, int m){
-  cout<<"inside plugin method returning a derived class Cell"<<endl;
   CellLife* cl = new CellLife(x,y);
   cl->findNeighbors(n,m);
   return cl;
@@ -75,7 +72,6 @@ Cell* PluginLife::getControllerCellType(int x, int y, int n, int m){
 
 
 void PluginLife::applyProba(Grid& oldGrid, Grid& newGrid){
-  cout<<"inside applyProba in the plugin"<<endl;
 }
 
 
