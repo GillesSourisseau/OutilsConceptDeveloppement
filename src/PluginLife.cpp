@@ -23,8 +23,9 @@ PluginLife::~PluginLife(){
 void PluginLife::nextGeneration(Grid& gr){
   cout<<"inside plugin method nextgeneration() that outputs the next gen of the grid"<<endl;
    vector<int> temp;
+   vector<int> temp2;
    srand(time(0));
-  //init the temp vector with 0 state
+  //init the temp vector with gr states
   for(int ind=0;ind < gr.sizeRows() * gr.sizeColumns();ind++){
     temp.push_back(0);
   }
@@ -38,34 +39,24 @@ void PluginLife::nextGeneration(Grid& gr){
     for(map<pair<int,int>,int>::iterator it=neighborsState.begin(); it!=neighborsState.end();++it){
       if(it->second == 0){
 	freeNeighbors.push_back(it->first);
-      }
-      if(io == 1 || io == 3 || io == 4 || io == 6){
+      }else{
 	if((it->second == 1 && cellState == 1) || (it->second == 2 && cellState == 2) ) sg++;
 	if((it->second == 1 && cellState == 2) || (it->second == 2 && cellState == 2) ) dg++;
       }
       io++;
     }
-    if( sg==1 && dg==0){
+    if(sg==1 && dg==0){
       temp[ind] = 0;
       continue;
     }else if( sg==0 && dg==1 ){
-      bool found = false;
-      while(!found){
-	int qrand = rand() % freeNeighbors.size();
-	if(temp[freeNeighbors[qrand].second + gr.sizeColumns() * freeNeighbors[qrand].first] == 0){
-	  temp[freeNeighbors[qrand].second + gr.sizeColumns() * freeNeighbors[qrand].first] = (rand() % 2) + 1;
-	  found = true;
-	}
-      }
+      int qrand = rand() % temp.size();
+      temp[qrand] = (rand() % 2) + 1;
+      temp[ind] = cellState;
+      continue;
     }else if(sg==0 && dg==0 && cellState!=0){
-      bool found = false;
-      while(!found){
-	int qrand = rand() % freeNeighbors.size();
-	if(temp[freeNeighbors[qrand].second + gr.sizeColumns() * freeNeighbors[qrand].first] == 0){
-	  temp[freeNeighbors[qrand].second + gr.sizeColumns() * freeNeighbors[qrand].first] = cellState;
-	  found = true;
-	}
-      }
+      int qrand = rand() % freeNeighbors.size();
+      temp[freeNeighbors[qrand].second + gr.sizeColumns() * freeNeighbors[qrand].first] = cellState;
+      temp[ind]=0;
     }
   }
   
@@ -90,7 +81,7 @@ void PluginLife::applyProba(Grid& oldGrid, Grid& newGrid){
 
 Sprite* PluginLife::getControllerSprite(){
   map<int,string> m;
-  m.insert(std::make_pair(0,"black"));
+  m.insert(std::make_pair(0,"white"));
   m.insert(std::make_pair(1,"red"));
   m.insert(std::make_pair(2,"green"));
   return new SpriteLife(m);
