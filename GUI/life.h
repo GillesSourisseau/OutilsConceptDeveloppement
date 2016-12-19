@@ -38,7 +38,8 @@ public:
     int cellsize;
     long m_tailleX;
     long m_tailleY;
-    int pourcentage;
+    long pourcentage;
+    long nbPop;
 
     PluginManager *pluginManager;
     Grid			*grid;
@@ -89,6 +90,7 @@ private:
     bool            m_topspeed;
     long            m_interval;
     long            m_tics;
+    long            nbPop;
 
 };
 

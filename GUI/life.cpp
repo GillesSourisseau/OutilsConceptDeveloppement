@@ -241,12 +241,14 @@ LifeFrame::LifeFrame() :
 
     drawPane = new BasicDrawPane( panel1);
     drawPane->pluginManager = new PluginManager();
-    drawPane->grid = new Grid(20,20,5);
+    drawPane->grid = new Grid(20,20,10);
+    nbPop = 40;
+    drawPane->nbPop = 40;
     drawPane->cellsize = 6; 
-    drawPane->m_tailleX = 100;
-    drawPane->m_tailleY = 100;
+    drawPane->m_tailleX = 20;
+    drawPane->m_tailleY = 20;
 
-    
+
 
  // info panel2
     m_text = new wxStaticText(panel2, wxID_ANY,
@@ -298,10 +300,16 @@ LifeFrame::~LifeFrame()
 void LifeFrame::UpdateInfoText()
 {
     wxString msg;
-
-    msg.Printf(_(" Generation: %lu (T: %lu ms)"),
+    nbPop = drawPane->nbPop;
+    int x = drawPane->m_tailleX;
+    int y = drawPane->m_tailleY;
+    int nbPop2 = nbPop;
+    long pourcentageVivant = ((nbPop2*100)/(x*y));
+    msg.Printf(_(" Generation: %lu (T: %lu ms) Population : %lu (%lu\%)"),
                m_tics,
-               m_topspeed? 0 : m_interval);
+               m_topspeed? 0 : m_interval,
+               nbPop,
+               pourcentageVivant);
     m_text->SetLabel(msg);
 }
 
@@ -371,8 +379,8 @@ void LifeFrame::OnMenu(wxCommandEvent& event)
 
 void LifeFrame::OnNewGame(wxCommandEvent& WXUNUSED(event)){
 
-        // stop if it was running
-    //OnStop();
+    // stop if it was running
+    OnStop();
 
     // dialog box
     NewGameDialog dialog(this);
@@ -388,9 +396,11 @@ void LifeFrame::OnNewGame(wxCommandEvent& WXUNUSED(event)){
         drawPane->grid = new Grid(drawPane->m_tailleX,drawPane->m_tailleY,dialog.GetPourcentage());
 
         drawPane->paintNow();
+        nbPop = drawPane->nbPop;
         m_tics = 0;
+        m_running = false;
         UpdateInfoText();
-
+        UpdateUI();
     }
 }
 
@@ -520,7 +530,7 @@ void BasicDrawPane::paintNow()
  */
 void BasicDrawPane::render(wxDC&  dc)
 {
-
+	nbPop = 0;
      dc.SetBrush(*wxWHITE_BRUSH); // blue filling
      dc.SetPen(*wxBLACK_PEN);
 
@@ -559,20 +569,13 @@ void BasicDrawPane::render(wxDC&  dc)
     }
 
 
-    
-    
+
+
 
     int scale = cellsize;
     for (int k = 0; k < m_tailleX; k++){
         for (int j= 0; j < m_tailleY; j++){
 
-            // if (j%2 == 1){
-            //     dc.SetBrush(*wxBLACK_BRUSH);
-
-            // } else {
-
-            //     dc.SetBrush(*wxWHITE_BRUSH);
-            // }
 
         	pion = grid->getCellAtIndex(k,j)->getPion();
 
@@ -583,6 +586,7 @@ void BasicDrawPane::render(wxDC&  dc)
         		break;
 
         		case 1:
+        				nbPop++;
         				 dc.SetBrush(*wxBLACK_BRUSH);
         		break;
 
