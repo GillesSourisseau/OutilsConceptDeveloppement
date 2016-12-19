@@ -573,6 +573,7 @@ void BasicDrawPane::render(wxDC&  dc)
                          dc.SetBrush(*wxWHITE_BRUSH);
 
             } else if ( color == "black" ){
+                 nbPop++;
                  dc.SetBrush(*wxBLACK_BRUSH);
             } else if ( color == "blue" ){
                          dc.SetBrush(*wxBLUE_BRUSH);
