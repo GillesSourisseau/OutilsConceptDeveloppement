@@ -1,17 +1,3 @@
-/////////////////////////////////////////////////////////////////////////////
-// Name:        life.cpp
-// Purpose:     The game of Life, created by J. H. Conway
-// Author:      Guillermo Rodriguez Garcia, <guille@iies.es>
-// Modified by:
-// Created:     Jan/2000
-// Copyright:   (c) 2000, Guillermo Rodriguez Garcia
-// Licence:     wxWindows licence
-/////////////////////////////////////////////////////////////////////////////
-
-// ==========================================================================
-// headers, declarations, constants
-// ==========================================================================
-
 // For compilers that support precompilation, includes "wx/wx.h".
 #include "wx/wxprec.h"
 
@@ -23,16 +9,9 @@
     #include "wx/wx.h"
 #endif
 
-// #include "wx/statline.h"
-// #include "wx/wfstream.h"
-// #include "wx/filedlg.h"
-// #include "wx/stockitem.h"
-// #include "wx/dcbuffer.h"
-
 #include "life.h"
-// #include "game.h"
 #include "dialogs.h"
-// #include "reader.h"
+
 
 // --------------------------------------------------------------------------
 // resources
@@ -98,19 +77,7 @@ wxEND_EVENT_TABLE()
 
 
 
-BEGIN_EVENT_TABLE(BasicDrawPane, wxPanel)
-// some useful events
-/*
- EVT_MOTION(BasicDrawPane::mouseMoved)
- EVT_LEFT_DOWN(BasicDrawPane::mouseDown)
- EVT_LEFT_UP(BasicDrawPane::mouseReleased)
- EVT_RIGHT_DOWN(BasicDrawPane::rightClick)
- EVT_LEAVE_WINDOW(BasicDrawPane::mouseLeftWindow)
- EVT_KEY_DOWN(BasicDrawPane::keyPressed)
- EVT_KEY_UP(BasicDrawPane::keyReleased)
- EVT_MOUSEWHEEL(BasicDrawPane::mouseWheelMoved)
- */
- 
+BEGIN_EVENT_TABLE(BasicDrawPane, wxPanel) 
 // catch paint events
 EVT_PAINT(BasicDrawPane::paintEvent)
  
@@ -391,6 +358,9 @@ void LifeFrame::OnNewGame(wxCommandEvent& WXUNUSED(event)){
         drawPane->m_tailleX = dialog.GetTailleX();
         drawPane->m_tailleY = dialog.GetTailleY();
 
+
+        drawPane->pluginManager->setPluginPath(dialog.getPluginPath());
+        PluginService::setPath(dialog.getPluginPath());
 
        	delete(drawPane->grid); 
         drawPane->grid = new Grid(drawPane->m_tailleX,drawPane->m_tailleY,dialog.GetPourcentage());

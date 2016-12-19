@@ -15,6 +15,7 @@
 #include "wx/sizer.h"
 
 #include "../src/PluginManager.hpp"
+#include "../src/PluginService.hpp"
 
 
 // --------------------------------------------------------------------------
@@ -81,7 +82,6 @@ private:
     void OnStart();
     void OnStop();
     void OnNewGame(wxCommandEvent& WXUNUSED(event));
-
 
 
     wxStaticText   *m_text;

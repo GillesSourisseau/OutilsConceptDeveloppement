@@ -11,10 +11,6 @@
 #ifndef _LIFE_DIALOGS_H_
 #define _LIFE_DIALOGS_H_
 
-// #include "life.h"
-//#include "game.h"
-
-
 // --------------------------------------------------------------------------
 // NewGameDialog
 // --------------------------------------------------------------------------
@@ -37,6 +33,8 @@ public:
     long GetTailleX();
     long GetTailleY();
     long GetPourcentage();
+    std::string getPluginPath();
+
 
 
 
@@ -52,6 +50,7 @@ private:
     long         tailleY;
     long		pourcentage;
     int         m_value;
+    std::string	pluginPath;
     wxListBox  *m_list;
     wxTextCtrl *m_text;
     // LifeCanvas *m_canvas;

@@ -91,6 +91,7 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
 {
 
     wxPanel *panel = new wxPanel(this, -1);
+    pluginPath = "./plugins/PluginBase.so";
 
   wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
   wxBoxSizer *hbox = new wxBoxSizer(wxHORIZONTAL);
@@ -101,7 +102,7 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
     wxRadioButton *rb0 = new wxRadioButton(panel, -1, 
       wxT("Jeu de base"), wxPoint(15, 30), wxDefaultSize, wxRB_GROUP);
   wxRadioButton *rb1 = new wxRadioButton(panel, ID_CHOIX1, 
-      wxT("Plugin 1"), wxPoint(15, 55));
+      wxT("Plugin War"), wxPoint(15, 55));
 
   wxRadioButton *rb2 = new wxRadioButton(panel, ID_CHOIX2, 
       wxT("Plugin 2"), wxPoint(15, 80));
@@ -217,7 +218,8 @@ void NewGameDialog::OnSliderDialog3(wxScrollEvent& event)
 
 void NewGameDialog::OnChoix1( wxCommandEvent& event )
 {
-    wxLogMessage("Le choix1");
+	pluginPath = "./plugins/PluginWar.so";
+    wxLogMessage("C'est la guerre entre les bleus et les rouges, les meilleurs vaincront.");
 }
 
 void NewGameDialog::OnChoix2( wxCommandEvent& event )
@@ -243,6 +245,11 @@ long NewGameDialog::GetTailleY()
 long NewGameDialog::GetPourcentage()
 {
     return pourcentage;
+}
+
+std::string NewGameDialog::getPluginPath()
+{
+	return pluginPath;
 }
 // --------------------------------------------------------------------------
 // LifeAboutDialog
