@@ -35,7 +35,6 @@ enum
     // listbox in samples dialog
     ID_CHOIX1,
     ID_CHOIX2,
-    ID_CHOIX3,
     ID_SLIDERDIALOG1,
     ID_SLIDERDIALOG2,
     ID_SLIDERDIALOG3
@@ -52,7 +51,6 @@ enum
 wxBEGIN_EVENT_TABLE(NewGameDialog, wxDialog)
     EVT_RADIOBUTTON (ID_CHOIX1, NewGameDialog::OnChoix1)
     EVT_RADIOBUTTON (ID_CHOIX2, NewGameDialog::OnChoix2)
-    EVT_RADIOBUTTON (ID_CHOIX3, NewGameDialog::OnChoix3)
     EVT_COMMAND_SCROLL  (ID_SLIDERDIALOG1,    NewGameDialog::OnSliderDialog1)
     EVT_COMMAND_SCROLL  (ID_SLIDERDIALOG2,    NewGameDialog::OnSliderDialog2)
     EVT_COMMAND_SCROLL  (ID_SLIDERDIALOG3,    NewGameDialog::OnSliderDialog3)
@@ -85,12 +83,11 @@ NewGameDialog::NewGameDialog(wxWindow *parent)
     wxRadioButton *rb0 = new wxRadioButton(panel, -1, 
       wxT("Jeu de base"), wxPoint(15, 30), wxDefaultSize, wxRB_GROUP);
   wxRadioButton *rb1 = new wxRadioButton(panel, ID_CHOIX1, 
-      wxT("Plugin War"), wxPoint(15, 55));
+      wxT("Inondation"), wxPoint(15, 55));
 
   wxRadioButton *rb2 = new wxRadioButton(panel, ID_CHOIX2, 
       wxT("Plugin 2"), wxPoint(15, 80));
-  wxRadioButton *rb3 = new wxRadioButton(panel, ID_CHOIX3, 
-      wxT("Plugin 3"), wxPoint(15, 105));
+
 
   wxSizer *sizerBtns = CreateButtonSizer(wxOK|wxCANCEL);
     if ( sizerBtns )
@@ -187,17 +184,12 @@ void NewGameDialog::OnSliderDialog3(wxScrollEvent& event)
 void NewGameDialog::OnChoix1( wxCommandEvent& event )
 {
 	pluginPath = "./plugins/PluginWar.so";
-    wxLogMessage("C'est la guerre entre les bleus et les rouges, les meilleurs vaincront.");
+    wxLogMessage("Des geysers sont apparus ! Fuyez !!");
 }
 
 void NewGameDialog::OnChoix2( wxCommandEvent& event )
 {
     wxLogMessage("Le choix2");
-}
-
-void NewGameDialog::OnChoix3( wxCommandEvent& event )
-{
-    wxLogMessage("Le choix3");
 }
 
 long NewGameDialog::GetTailleX()

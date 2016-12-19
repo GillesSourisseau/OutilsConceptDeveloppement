@@ -40,6 +40,8 @@ void PluginWar::nextGeneration(Grid& gr)
 		map<pair<int,int>,int> neighborsState = gr.getCellNeighborsState((gr.getTab())[ind]);
 		int cellsRed = 0;
 		int cellsBlue = 0;
+ 
+		cpt = 0;
 
 		for(map<pair<int,int>,int>::iterator it=neighborsState.begin(); it!=neighborsState.end();++it)
 		{
@@ -48,85 +50,25 @@ void PluginWar::nextGeneration(Grid& gr)
 			{
 				cellsBlue++;
 			}
-			if(it->second == 3)
+			if(it->second == 1)
 			{
 				cellsRed++;
 			}
-
-			if (cpt == 3)
-			{
-				if (it->second == 2)
-				{
-					blueMove = true;
-				}
-			}
-
-			if (cpt == 4)
-			{
-				if (it->second == 3)
-				{
-					redMove = true;
-				}
-			}
-
-			cpt++;
 		}
 
 		int cellState = (gr.getTab())[ind]->getPion();
-		if(cellState == 2)
-		{
-			if (cellsRed == 0)
-			{
-				fought = false;
-			}
-			else
-			{
-				fought = true;
-
-				if(cellsRed >= cellsBlue+1)
-				{
-					temp[ind] = 0;
-				}
-
-				if(cellsRed < cellsBlue+1)
-				{
-					temp[ind] = 2;
-				}
-			}
-		}
-		else if (cellState == 3)
-		{
-			if (cellsBlue == 0)
-			{
-				fought = false;
-			}
-			else
-			{
-				fought = 1;
-
-				if(cellsBlue >= cellsRed+1)
-				{
+		
+		if(cellState == 1){
+			temp[ind] = 1;
+		}else if (cellState == 2){
+			if (cellsRed > 0){
 				temp[ind] = 0;
-				}
-				if(cellsBlue < cellsRed+1)
-				{
-				temp[ind] = 3;
-				}
+			}else{
+				temp[ind]= 2;
 			}
-		}
-		else if (cellState == 0)
-		{
-			if (blueMove && redMove)
-			{
-				temp[ind] = 0;
-			}
-			if (!fought && blueMove)
-			{
+		}else if(cellState == 0){
+			if(cellsBlue > 0 && cellsRed == 0){
 				temp[ind] = 2;
-			}
-			if (!fought && redMove)
-			{
-				temp[ind] = 3;
 			}
 		}
 
