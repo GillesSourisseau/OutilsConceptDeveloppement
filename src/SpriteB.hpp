@@ -6,7 +6,7 @@
 
 class SpriteB : public Sprite{
 public:
-  SpriteB(std::string imageName);
+  SpriteB();
   ~SpriteB();
 };
 

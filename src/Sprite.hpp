@@ -10,14 +10,15 @@
  */
 class Sprite{
 private:
-  std::string imageName;
+  std::string imageName0;
+  std::string imageName1;
   
 public:
   /*!
    *\brief Constructor for Sprite
    *\param[in] imageName - file name that contains the sprite
    */
-  Sprite(std::string imageName);
+  Sprite(std::string imageName0, std::string imageName1);
 
   /*!
    *\brief Destructor for Sprite
@@ -28,13 +29,17 @@ public:
    *\name getImageName
    *\return imageName
    */
-  std::string getImageName();
+  std::string getImage0();
+
+  std::string getImage1();
 
   /*!
    *\name setImageName
    *\post the name of the file containing the sprite is changed
    */
-  void setImageName(std::string imageName); 
+  void setImage0(std::string imageName);
+
+  void setImage1(std::string imageName);
 };
 
 

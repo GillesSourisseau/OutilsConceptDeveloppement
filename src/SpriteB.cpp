@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-SpriteB::SpriteB(string imageName) : Sprite(imageName){
+SpriteB::SpriteB() : Sprite("red","blue"){
 
 }
 

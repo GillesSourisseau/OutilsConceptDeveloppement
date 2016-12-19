@@ -64,5 +64,5 @@ void PluginBase::applyProba(Grid& oldGrid, Grid& newGrid){
 
 
 Sprite* PluginBase::getControllerSprite(){
-  return new SpriteB("hehehe");
+  return new SpriteB();
 }
