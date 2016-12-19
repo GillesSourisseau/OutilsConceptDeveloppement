@@ -68,8 +68,8 @@ void* PluginManager::loadPlugin(int method, void* params[]){
 Cell* PluginManager::getCellFromPlugin(int i,int j,int n, int m){
   void* params[] = {&i, &j, &n, &m};
   Cell* res =(Cell*) loadPlugin(1,params);
-  if(res != nullptr){
-    cout<<"verifing "<<res->getPion()<<endl;
+  if(res == nullptr){
+    cout<<"plugin manager returned a cell pointing to null "<<res->getPion()<<endl;
   }
   return res;
 }
@@ -98,7 +98,7 @@ void PluginManager::setPluginPath(string path){
 
 PluginManager::PluginManager(){
   setPluginPath("./plugins/PluginBase.so");//init with default plugin
-
+  /*
   cout<<"This is the plugins List"<<endl;
   vector<string> plarr = findPlugins("./plugins/");
   for(int i=0;i<plarr.size();i++){
@@ -106,6 +106,7 @@ PluginManager::PluginManager(){
     string name = base.substr(0,base.find_last_of("."));
     cout<<i<<" ) "<<plarr[i]<<endl;
   }
+  */
 }
 
 PluginManager::~PluginManager(){
