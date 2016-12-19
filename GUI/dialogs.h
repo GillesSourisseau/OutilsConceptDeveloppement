@@ -33,8 +33,10 @@ public:
     void UpdateInfoTextDialog();
     void OnSliderDialog1(wxScrollEvent&  event);
     void OnSliderDialog2(wxScrollEvent&  event);
+    void OnSliderDialog3(wxScrollEvent&  event);
     long GetTailleX();
     long GetTailleY();
+    long GetPourcentage();
 
 
 
@@ -44,9 +46,11 @@ private:
 
     wxSlider    *slider1;
     wxSlider    *slider2;
+    wxSlider    *slider3;
     wxStaticText *text_taille;
     long        tailleX;
     long         tailleY;
+    long		pourcentage;
     int         m_value;
     wxListBox  *m_list;
     wxTextCtrl *m_text;
