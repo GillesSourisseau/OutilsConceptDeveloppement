@@ -55,10 +55,9 @@ void Grid::randomInitialise(int pion){
 
     p.first = x;
     p.second = y; 
-    pair<set<pairs>::iterator,bool> ret = initSet.insert(p);
-    if(ret.second == true){
-      i++;
-    }
+    //pair<set<pairs>::iterator,bool> ret 
+    initSet.insert(p);
+    i++;
   } 
 
   set<pairs> :: iterator it;
@@ -98,7 +97,14 @@ vector<Cell*> Grid::getTab(){
 }
 
 Cell* Grid::getCellAtIndex(int i,int j){
-  return tab[j + (this->n)*i];
+  if((i<0 && i>=n) && (j<0 && j>=m)){
+    cout<<"INDICES I,J MAL DEFINIES"<<endl;
+    exit(1);
+  }else if((j+(this->m)*i) >= (this->n * this->m)){
+    cout<<"INDICE DANS TAB NON EXISTANT"<<endl;
+    exit(1);
+  }
+  return tab[j + (this->m)*i];
 }
 
 map<pair<int,int>,int> Grid::getCellNeighborsState(Cell* c){

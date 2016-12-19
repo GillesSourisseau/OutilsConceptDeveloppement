@@ -45,7 +45,10 @@ void* PluginManager::loadPlugin(int method, void* params[]){
       int* n =(int*) params[2];
       int* m =(int*) params[3];
       res = p->getControllerCellType(*x,*y,*n,*m);
-      cout<<"end test"<<endl;
+      if(res == nullptr){
+	cout<<"cell could not be created"<<endl;;
+	exit(1);
+      }
     }else if (method==2){
       cout<<"now we are going to get the next state of the grid"<<endl;
       Grid* g = (Grid*) params[0];
@@ -54,6 +57,10 @@ void* PluginManager::loadPlugin(int method, void* params[]){
     }else if(method == 3){
       cout<<"getting the sprite class from the plugin"<<endl;
       res = p->getControllerSprite();
+      if(res == nullptr){
+	cout<<"sprite could not be created"<<endl;
+	exit(1);
+      }
       cout<<"sprite has been retrieved"<<endl;
     }else if(method == 4){
       cout<<"applying probabilities on the grid"<<endl;
@@ -70,6 +77,9 @@ void* PluginManager::loadPlugin(int method, void* params[]){
 Cell* PluginManager::getCellFromPlugin(int i,int j,int n, int m){
   void* params[] = {&i, &j, &n, &m};
   Cell* res =(Cell*) loadPlugin(1,params);
+  if(res != nullptr){
+    cout<<"verifing "<<res->getPion()<<endl;
+  }
   return res;
 }
 
